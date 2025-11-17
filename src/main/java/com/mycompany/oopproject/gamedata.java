@@ -26,10 +26,9 @@ public class gamedata {
     public static hero FIGHTER = new fighter();
     public static hero HEALER = new healer();
     
-    public static int currentStage = 1;
+    public static int currentStage = 7;
     public static String playerName = "Player";
     public static final int BOSS_STAGE = 10;
-    public static int totalRoundsPassed = 0;
     
     public static final List<Item> ITEM_POOL = List.of(
 
@@ -62,7 +61,7 @@ public class gamedata {
         HEALER = new healer();
         
         currentStage = 1;
-        totalRoundsPassed = 0;
+        playerName = "Player";
         System.out.println("--- GAME DATA RESET ---");
     }
     

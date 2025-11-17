@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class tank extends hero {
     
     public tank() {
-        super("TANK", "/images/tank.png", 10, 6, 1);
+        super("TANK", "/images/tank.png", 15, 6, 1);
 
         
         this.skills = new ArrayList<>();

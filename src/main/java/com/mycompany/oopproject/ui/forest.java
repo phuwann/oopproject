@@ -20,10 +20,6 @@ public class forest extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(forest.class.getName());
     
-    private final String[] BACKGROUND_PATHS = {
-        "/images/forest.png",  
-        "/images/cave.png" 
-    };
     
     private hero characterToDisplay1;
     private hero characterToDisplay2;
@@ -31,7 +27,6 @@ public class forest extends javax.swing.JFrame {
     private monster characterToDisplay4;
     private monster characterToDisplay5;
     private monster characterToDisplay6;
-    private monster bossToDisplay;
     private java.util.ArrayList<hero> heroes;
     private java.util.ArrayList<monster> monsters;
     private hero currentHero;
@@ -44,11 +39,10 @@ public class forest extends javax.swing.JFrame {
     public forest(hero h1, hero h2, hero h3, monster m1, monster m2, monster m3) {
         initComponents();
         
+        setDynamicBackground();
+        
         lblStageInfo.setText("STAGE " + gamedata.currentStage);
         lblPlayerName.setText(gamedata.playerName);
-
-        int bgIndex = gamedata.totalRoundsPassed % BACKGROUND_PATHS.length;
-        bgLobby.setIcon(new javax.swing.ImageIcon(getClass().getResource(BACKGROUND_PATHS[bgIndex])));
         
         this.characterToDisplay1 = h1;
         this.characterToDisplay2 = h2;
@@ -553,11 +547,6 @@ public class forest extends javax.swing.JFrame {
             }
 
             updateBars();
-            gamedata.totalRoundsPassed++;
-
-            int bgIndex = gamedata.totalRoundsPassed % BACKGROUND_PATHS.length;
-            
-            bgLobby.setIcon(new javax.swing.ImageIcon(getClass().getResource(BACKGROUND_PATHS[bgIndex])));
             
             txtGamelog.append("--- The environment changes... ---\n");
             txtGamelog.setCaretPosition(txtGamelog.getDocument().getLength());
@@ -715,7 +704,7 @@ public class forest extends javax.swing.JFrame {
         monster m2 = new orc();
         monster m3 = new orc();
         
-        java.awt.EventQueue.invokeLater(() -> new forest(t1, t2,t3,m1,m2,m3).setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new forest(t1,t2,t3,m1,m2,m3).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -806,5 +795,46 @@ public class forest extends javax.swing.JFrame {
                "</html>";
     }
     
+    
+    private void setDynamicBackground() {
+        String bgPath;
+
+        int bgIndex = (gamedata.currentStage - 1) / 2;
+
+        switch (bgIndex) {
+            case 0: 
+                bgPath = "/images/forest.png";
+                break;
+            case 1: 
+                bgPath = "/images/cave.png"; 
+                break;
+            case 2: 
+                bgPath = "/images/map3.png";
+                break;
+            case 3: 
+                bgPath = "/images/map4.png";
+                break;
+            case 4: 
+                bgPath = "/images/boss_lair.png";
+                break;
+            default:
+                bgPath = "/images/forest.png";
+                break;
+        }
+
+        try {
+            java.net.URL imgURL = getClass().getResource(bgPath);
+            if (imgURL != null) {
+                bgLobby.setIcon(new javax.swing.ImageIcon(imgURL));
+            } else {
+
+                logger.log(java.util.logging.Level.SEVERE, "Background resource not found: " + bgPath);
+
+                bgLobby.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/forest.png")));
+            }
+        } catch (Exception ex) {
+            logger.log(java.util.logging.Level.SEVERE, "Error loading background image: " + bgPath, ex);
+        }
+    }
     
 }

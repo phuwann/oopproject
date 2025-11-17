@@ -20,13 +20,40 @@ public class orc extends monster {
 
     public orc(int stage) {
 
-        super("ORC (Lvl " + stage + ")",      // name
-          "/images/orc.png",             // imagepath
-          7 + ((stage - 1) * 2),         // Hp
-          0,                             // Mana
-          3 + (stage - 1));              //Atk
+        super(
+            getMonsterNamePrefix(stage) + " (Lvl " + stage + ")",
+            getMonsterImagePath(stage),                   
+            7 + ((stage - 1) * 2),                 
+            0,                            
+            3 + (stage - 1)                                    
+        );
 
         this.skills = new ArrayList<>();
         this.skills.add(new skill(" NORMAL ATTACK ", 0, 0, false, false));
     }
+    
+    private static String getMonsterNamePrefix(int stage) {
+        int monsterGroup = (stage - 1) / 2;
+        switch (monsterGroup) {
+            case 0: return "ORC";
+            case 1: return "GOLEM";
+            case 2: return "GOBLIN"; 
+            case 3: return "Cyclops";
+            case 4: return "ORC CAPTAIN";
+            default: return "ORC";
+        }
+    }
+
+    private static String getMonsterImagePath(int stage) {
+        int monsterGroup = (stage - 1) / 2;
+        switch (monsterGroup) {
+            case 0: return "/images/orc.png";
+            case 1: return "/images/golem.png";
+            case 2: return "/images/goblin.png";
+            case 3: return "/images/cyclops.png";
+            case 4: return "/images/orc_captain.png";
+            default: return "/images/orc.png";
+        }
+    }
+    
 }
