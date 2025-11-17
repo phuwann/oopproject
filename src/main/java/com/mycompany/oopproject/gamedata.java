@@ -24,6 +24,7 @@ public class gamedata {
     
     public static int currentStage = 1;
     public static String playerName = "Player";
+    public static final int BOSS_STAGE = 10;
     
     public static void resetHeroes() {
         MAGE = new mage();

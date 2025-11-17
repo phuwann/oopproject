@@ -27,10 +27,12 @@ com\mycompany\oopproject\ui\forest$3.class
 com\mycompany\oopproject\ui\GUIMain$1.class
 com\mycompany\oopproject\ui\RewardScreen$2.class
 com\mycompany\oopproject\gamedata.class
+com\mycompany\oopproject\monsters\dragon.class
 com\mycompany\oopproject\ui\GUIMain$9.class
 com\mycompany\oopproject\ui\GUIMain$12.class
 com\mycompany\oopproject\characters\hero.class
 com\mycompany\oopproject\ui\StatusGui.class
+com\mycompany\oopproject\monsters\EmptyMonster.class
 com\mycompany\oopproject\characters\monster.class
 com\mycompany\oopproject\ui\forest$1.class
 com\mycompany\oopproject\characters\skill.class

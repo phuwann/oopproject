@@ -8,6 +8,8 @@ import com.mycompany.oopproject.gamedata;
 import com.mycompany.oopproject.characters.hero;
 import com.mycompany.oopproject.characters.monster;
 import com.mycompany.oopproject.monsters.orc;
+import com.mycompany.oopproject.monsters.dragon;
+import com.mycompany.oopproject.monsters.EmptyMonster;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -286,9 +288,18 @@ public class GUIMain extends javax.swing.JFrame {
             hero hero2 = selectedHeroes.get(1); 
             hero hero3 = selectedHeroes.get(2);
             
-            monster m1 = new orc();
-            monster m2 = new orc();
-            monster m3 = new orc();
+            int stage = gamedata.currentStage;
+            monster m1, m2, m3;
+
+            if (stage == gamedata.BOSS_STAGE) {
+                m1 = new EmptyMonster(); 
+                m2 = new EmptyMonster();
+                m3 = new dragon();
+            } else {
+                m1 = new orc(stage);
+                m2 = new orc(stage);
+                m3 = new orc(stage);
+            }
 
             forest map1 = new forest(hero1, hero2, hero3, m1, m2, m3);
             map1.setVisible(true);

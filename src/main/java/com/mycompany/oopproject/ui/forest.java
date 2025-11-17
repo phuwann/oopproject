@@ -13,7 +13,8 @@ import com.mycompany.oopproject.characters.monster;
 import com.mycompany.oopproject.monsters.orc;
 import com.mycompany.oopproject.characters.skill;
 import com.mycompany.oopproject.heroes.tank;
-import com.mycompany.oopproject.ui.GUIMain;
+import com.mycompany.oopproject.monsters.dragon;
+import com.mycompany.oopproject.monsters.EmptyMonster;
 
 public class forest extends javax.swing.JFrame {
     
@@ -25,6 +26,7 @@ public class forest extends javax.swing.JFrame {
     private monster characterToDisplay4;
     private monster characterToDisplay5;
     private monster characterToDisplay6;
+    private monster bossToDisplay;
     private java.util.ArrayList<hero> heroes;
     private java.util.ArrayList<monster> monsters;
     private hero currentHero;
@@ -39,8 +41,7 @@ public class forest extends javax.swing.JFrame {
         
         lblStageInfo.setText("STAGE " + gamedata.currentStage);
         lblPlayerName.setText(gamedata.playerName);
-        
-        lblStageInfo.setText("STAGE " + gamedata.currentStage);
+
         
         this.characterToDisplay1 = h1;
         this.characterToDisplay2 = h2;
@@ -48,55 +49,77 @@ public class forest extends javax.swing.JFrame {
         this.characterToDisplay4 = m1;
         this.characterToDisplay5 = m2;
         this.characterToDisplay6 = m3;
-        
         this.heroes = new java.util.ArrayList<>(java.util.Arrays.asList(h1, h2, h3));
-        this.monsters = new java.util.ArrayList<>(java.util.Arrays.asList(m1, m2, m3));
+        this.monsters = new java.util.ArrayList<>();
+        if (m1 != null && !(m1 instanceof EmptyMonster)) this.monsters.add(m1);
+        if (m2 != null && !(m2 instanceof EmptyMonster)) this.monsters.add(m2);
+        if (m3 != null && !(m3 instanceof EmptyMonster)) this.monsters.add(m3);
+
         txtGamelog.setEditable(false);
         txtGamelog.setText("--- GAME START! ---\n");
-
         
         hero1.setIcon(createScaledImageIcon(
             characterToDisplay1.getImagePath(), 
-                270, 
-                300 
+            270, 
+            300 
         ));
+
         hero2.setIcon(createScaledImageIcon(
             characterToDisplay2.getImagePath(),
-                270,
-                300
+            270,
+            300
         ));
+
         hero3.setIcon(createScaledImageIcon(
             characterToDisplay3.getImagePath(),
-                270,
-                300
+            270,
+            300
         ));
         
-        monster1.setIcon(createScaledImageIcon(
-            characterToDisplay4.getImagePath(),
-                270,
-                300
-        ));
-        monster2.setIcon(createScaledImageIcon(
-            characterToDisplay5.getImagePath(),
-                270,
-                300
-        ));
-        monster3.setIcon(createScaledImageIcon(
-            characterToDisplay6.getImagePath(),
-                270,
-                300
-        ));
-        
+
+        if (m1 != null && !(m1 instanceof EmptyMonster)) {
+            txtMonster1.setText(m1.getName());
+            monster1.setIcon(createScaledImageIcon(m1.getImagePath(), 270, 300));
+        } else {
+
+            monster1.setVisible(false);
+            txtMonster1.setVisible(false);
+            hpMonster1.setVisible(false);
+        }
+
+        if (m2 != null && !(m2 instanceof EmptyMonster)) {
+            txtMonster2.setText(m2.getName());
+            monster2.setIcon(createScaledImageIcon(m2.getImagePath(), 270, 300));
+        } else {
+
+            monster2.setVisible(false);
+            txtMonster2.setVisible(false);
+            hpMonster2.setVisible(false);
+        }
+
+        if (m3 != null && !(m3 instanceof EmptyMonster)) {
+            
+            txtMonster3.setText(m3.getName());
+            
+            if (m3 instanceof dragon) {
+                monster3.setIcon(createScaledImageIcon(m3.getImagePath(), 400, 450)); 
+            } else {
+                monster3.setIcon(createScaledImageIcon(m3.getImagePath(), 270, 300));
+            }
+            
+        } else {
+            monster3.setVisible(false);
+            txtMonster3.setVisible(false);
+            hpMonster3.setVisible(false);
+        }
+
         setupBars();
         updateBars();
-        
+
         txtHero1.setText(h1.getName());
         txtHero2.setText(h2.getName());
         txtHero3.setText(h3.getName());
-        txtMonster1.setText(m1.getName());
-        txtMonster2.setText(m2.getName());
-        txtMonster3.setText(m3.getName());
-        
+
         btnSkill1.addActionListener(evt -> selectSkill(0));
         btnSkill2.addActionListener(evt -> selectSkill(1));
         btnSkill3.addActionListener(evt -> selectSkill(2));
@@ -157,7 +180,7 @@ public class forest extends javax.swing.JFrame {
 
             if (selectedSkill.isHealing()) {
 
-                txtGamelog.append(currentHero.getName() + " USE " + selectedSkill.getName() + " (HEAL ALL)!\n");
+                txtGamelog.append(currentHero.getName() + " USE " + selectedSkill.getName() + "\n (HEAL ALL)!\n");
                 txtGamelog.setCaretPosition(txtGamelog.getDocument().getLength());
 
                 for (hero h : heroes) {
@@ -166,7 +189,7 @@ public class forest extends javax.swing.JFrame {
                     }
                 }
             } else {
-                txtGamelog.append(currentHero.getName() + " USE " + selectedSkill.getName() + " (ATTACK ALL)!\n");
+                txtGamelog.append(currentHero.getName() + " USE " + selectedSkill.getName() + "\n (ATTACK ALL)!\n");
                 txtGamelog.setCaretPosition(txtGamelog.getDocument().getLength());
 
                 for (monster m : monsters) {
@@ -236,38 +259,48 @@ public class forest extends javax.swing.JFrame {
         boolean allHeroesDead = heroes.stream().allMatch(h -> h.getcurrentHp() == 0);
 
         if (allMonstersDead) {
-            lblTurnInfo.setText("YOU WIN!"); 
-            txtGamelog.append("\n🎉 === YOU WIN! === 🎉\n");
-            txtGamelog.setCaretPosition(txtGamelog.getDocument().getLength());
-            btnSkill1.setEnabled(false);
-            btnSkill2.setEnabled(false);
-            btnSkill3.setEnabled(false);
-            isHeroTurn = false;
+            if (gamedata.currentStage == gamedata.BOSS_STAGE) {
+            
+                txtGamelog.append("\n🏆 === YOU BEAT THE GAME! === 🏆\n");
+                txtGamelog.setCaretPosition(txtGamelog.getDocument().getLength());
 
-            RewardScreen rewardDialog = new RewardScreen(this, true, this.heroes);
-            rewardDialog.setVisible(true);
+                javax.swing.JOptionPane.showMessageDialog(this, 
+                    "Congratulations, " + gamedata.playerName + "!\nYou have defeated the final boss and saved the realm!", 
+                    "VICTORY!", 
+                    javax.swing.JOptionPane.INFORMATION_MESSAGE);
 
-            gamedata.currentStage++;
-            int nextStage = gamedata.currentStage;
-            monster m1_next = new orc(nextStage);
-            monster m2_next = new orc(nextStage);
-            monster m3_next = new orc(nextStage);
-            
-            hero h1 = this.heroes.get(0);
-            hero h2 = this.heroes.get(1);
-            hero h3 = this.heroes.get(2);
-            
-            h1.resetHp();
-            h1.resetMana();
-            
-            h2.resetHp();
-            h2.resetMana();
-            
-            h3.resetHp();
-            h3.resetMana();
-            
-            new forest(h1, h2, h3, m1_next, m2_next, m3_next).setVisible(true);
-            this.dispose(); 
+                gamedata.resetHeroes(); 
+                new GUIMain().setVisible(true);
+                this.dispose();
+
+            } else {
+                RewardScreen rewardDialog = new RewardScreen(this, true, this.heroes);
+                rewardDialog.setVisible(true); 
+
+                gamedata.currentStage++; 
+                int nextStage = gamedata.currentStage;
+
+                monster m1_next, m2_next, m3_next;
+
+                if (nextStage == gamedata.BOSS_STAGE) {
+                     m1_next = new EmptyMonster();
+                     m2_next = new EmptyMonster();
+                     m3_next = new dragon();
+                } else {
+                     m1_next = new orc(nextStage);
+                     m2_next = new orc(nextStage);
+                     m3_next = new orc(nextStage);
+                }
+
+                hero h1 = this.heroes.get(0);
+                hero h2 = this.heroes.get(1);
+                hero h3 = this.heroes.get(2);
+                h1.resetHp();
+                h2.resetHp();
+                h3.resetHp();
+                new forest(h1, h2, h3, m1_next, m2_next, m3_next).setVisible(true);
+                this.dispose(); 
+            }
             return true;
         }
 
@@ -406,13 +439,6 @@ public class forest extends javax.swing.JFrame {
 
     private void startMonsterTurn() {
         
-        if (heroTurnIndex == 0) {
-            txtGamelog.append("\n--- ALL HEROES REGENERATE MANA --- \n");
-            txtGamelog.setCaretPosition(txtGamelog.getDocument().getLength());
-        
-
-            updateBars();
-        }
         
         if (checkGameOver()) return; 
 
@@ -449,11 +475,17 @@ public class forest extends javax.swing.JFrame {
             
             if (!livingHeroes.isEmpty()) {
                 hero target = livingHeroes.get(new java.util.Random().nextInt(livingHeroes.size()));
-                skill attack = m.getSkills().get(0); 
+                skill skillToUse;
+                
+                if (m.getSkills().size() > 1 && new java.util.Random().nextInt(3) == 0) { 
+                    skillToUse = m.getSkills().get(1);
+               } else {
+                    skillToUse = m.getSkills().get(0);
+               }
 
-                txtGamelog.append(m.getName() + " USE " + attack.getName() + " To " + target.getName() + "!\n");
+                txtGamelog.append(m.getName() + " USE " + skillToUse.getName() + " To " + target.getName() + "!\n");
                 txtGamelog.setCaretPosition(txtGamelog.getDocument().getLength());
-                m.useSkill(attack, target);
+                m.useSkill(skillToUse, target);
 
                 updateBars();
             }
@@ -507,23 +539,23 @@ public class forest extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnSkill1 = new javax.swing.JButton();
+        btnSkill2 = new javax.swing.JButton();
+        btnSkill3 = new javax.swing.JButton();
+        monster3 = new RotatedLabel();
         monster2 = new RotatedLabel();
         hero1 = new RotatedLabel();
-        monster3 = new RotatedLabel();
         hero3 = new RotatedLabel();
         hero2 = new RotatedLabel();
-        btnSkill1 = new javax.swing.JButton();
-        monster1 = new RotatedLabel();
         hpHero1 = new javax.swing.JProgressBar();
         hpHero2 = new javax.swing.JProgressBar();
+        monster1 = new RotatedLabel();
         hpHero3 = new javax.swing.JProgressBar();
         txtHero1 = new javax.swing.JLabel();
         txtHero2 = new javax.swing.JLabel();
         txtMonster1 = new javax.swing.JLabel();
         hpMonster3 = new javax.swing.JProgressBar();
-        btnSkill2 = new javax.swing.JButton();
         hpMonster2 = new javax.swing.JProgressBar();
-        btnSkill3 = new javax.swing.JButton();
         hpMonster1 = new javax.swing.JProgressBar();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtGamelog = new javax.swing.JTextArea();
@@ -540,11 +572,6 @@ public class forest extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(monster2, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 290, 290, 280));
-        getContentPane().add(hero1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 290, 280));
-        getContentPane().add(monster3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 210, 290, 280));
-        getContentPane().add(hero3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 190, 290, 280));
-        getContentPane().add(hero2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 290, 280));
 
         btnSkill1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -552,9 +579,16 @@ public class forest extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnSkill1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 430, 160, 40));
-        getContentPane().add(monster1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 160, 290, 280));
+        getContentPane().add(btnSkill2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 480, 160, 40));
+        getContentPane().add(btnSkill3, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 530, 160, 40));
+        getContentPane().add(monster3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 180, 400, 350));
+        getContentPane().add(monster2, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 290, 290, 280));
+        getContentPane().add(hero1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 290, 280));
+        getContentPane().add(hero3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 190, 290, 280));
+        getContentPane().add(hero2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 290, 280));
         getContentPane().add(hpHero1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 170, 20));
         getContentPane().add(hpHero2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 170, 20));
+        getContentPane().add(monster1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 160, 290, 280));
         getContentPane().add(hpHero3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, 170, 20));
 
         txtHero1.setFont(new java.awt.Font("Book Antiqua", 1, 14)); // NOI18N
@@ -569,12 +603,10 @@ public class forest extends javax.swing.JFrame {
 
         txtMonster1.setFont(new java.awt.Font("Book Antiqua", 1, 14)); // NOI18N
         txtMonster1.setText("jLabel3");
-        getContentPane().add(txtMonster1, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 100, -1, -1));
-        getContentPane().add(hpMonster3, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 80, 180, 20));
-        getContentPane().add(btnSkill2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 480, 160, 40));
-        getContentPane().add(hpMonster2, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 10, 180, 20));
-        getContentPane().add(btnSkill3, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 530, 160, 40));
-        getContentPane().add(hpMonster1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 10, 180, 20));
+        getContentPane().add(txtMonster1, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 90, -1, -1));
+        getContentPane().add(hpMonster3, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 10, 180, 20));
+        getContentPane().add(hpMonster2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 10, 180, 20));
+        getContentPane().add(hpMonster1, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 70, 180, 20));
 
         txtGamelog.setColumns(20);
         txtGamelog.setRows(5);
@@ -650,7 +682,7 @@ public class forest extends javax.swing.JFrame {
         monster m2 = new orc();
         monster m3 = new orc();
         
-        java.awt.EventQueue.invokeLater(() -> new forest(t1,t2,t3,m1,m2,m3).setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new forest(t1, t2,t3,m1,m2,m3).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
