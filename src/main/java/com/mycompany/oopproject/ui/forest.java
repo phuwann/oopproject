@@ -20,6 +20,11 @@ public class forest extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(forest.class.getName());
     
+    private final String[] BACKGROUND_PATHS = {
+        "/images/forest.png",  
+        "/images/cave.png" 
+    };
+    
     private hero characterToDisplay1;
     private hero characterToDisplay2;
     private hero characterToDisplay3;
@@ -42,6 +47,8 @@ public class forest extends javax.swing.JFrame {
         lblStageInfo.setText("STAGE " + gamedata.currentStage);
         lblPlayerName.setText(gamedata.playerName);
 
+        int bgIndex = gamedata.totalRoundsPassed % BACKGROUND_PATHS.length;
+        bgLobby.setIcon(new javax.swing.ImageIcon(getClass().getResource(BACKGROUND_PATHS[bgIndex])));
         
         this.characterToDisplay1 = h1;
         this.characterToDisplay2 = h2;
@@ -546,6 +553,14 @@ public class forest extends javax.swing.JFrame {
             }
 
             updateBars();
+            gamedata.totalRoundsPassed++;
+
+            int bgIndex = gamedata.totalRoundsPassed % BACKGROUND_PATHS.length;
+            
+            bgLobby.setIcon(new javax.swing.ImageIcon(getClass().getResource(BACKGROUND_PATHS[bgIndex])));
+            
+            txtGamelog.append("--- The environment changes... ---\n");
+            txtGamelog.setCaretPosition(txtGamelog.getDocument().getLength());
         }
 
         currentHero = heroes.get(heroTurnIndex);
