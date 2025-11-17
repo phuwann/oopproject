@@ -11,6 +11,7 @@ import com.mycompany.oopproject.characters.hero;
 import com.mycompany.oopproject.heroes.mage;
 import com.mycompany.oopproject.heroes.tank;
 import com.mycompany.oopproject.ui.GUIMain;
+import com.mycompany.oopproject.gamedata;
 
 /**
  *
@@ -30,11 +31,11 @@ public class StatusGui extends javax.swing.JFrame {
         initComponents();
         
         switch (x.toLowerCase()) {
-            case "mage" -> character = new mage();
-            case "tank" -> character = new tank();
-            case "fighter" -> character = new fighter();
-            case "healer" -> character = new healer();
-            case "archer" -> character = new archer();
+            case "mage" -> character = gamedata.MAGE;
+            case "tank" -> character = gamedata.TANK;
+            case "fighter" -> character = gamedata.FIGHTER;
+            case "healer" -> character = gamedata.HEALER;
+            case "archer" -> character = gamedata.ARCHER;
             default -> throw new IllegalArgumentException("Unknown hero type: " + x);
         }
         

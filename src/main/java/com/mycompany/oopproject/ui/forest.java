@@ -159,6 +159,7 @@ public class forest extends javax.swing.JFrame {
         heroTurnIndex = 0;
         currentHero = heroes.get(heroTurnIndex);
         isHeroTurn = true;
+        
         updateTurnUI();
     }   
     
@@ -274,9 +275,18 @@ public class forest extends javax.swing.JFrame {
                 this.dispose();
 
             } else {
-                RewardScreen rewardDialog = new RewardScreen(this, true, this.heroes);
-                rewardDialog.setVisible(true); 
-
+                
+                if (gamedata.currentStage % 2 == 0) {
+                
+                    ItemRewardScreen itemDialog = new ItemRewardScreen(this, true, this.heroes);
+                    itemDialog.setVisible(true);
+                
+                }else{
+                    RewardScreen rewardDialog = new RewardScreen(this, true, this.heroes);
+                    rewardDialog.setVisible(true);
+                }
+                
+                
                 gamedata.currentStage++; 
                 int nextStage = gamedata.currentStage;
 
@@ -296,8 +306,11 @@ public class forest extends javax.swing.JFrame {
                 hero h2 = this.heroes.get(1);
                 hero h3 = this.heroes.get(2);
                 h1.resetHp();
+                h1.resetMana();
                 h2.resetHp();
+                h2.resetMana();
                 h3.resetHp();
+                h3.resetMana();
                 new forest(h1, h2, h3, m1_next, m2_next, m3_next).setVisible(true);
                 this.dispose(); 
             }
@@ -426,8 +439,13 @@ public class forest extends javax.swing.JFrame {
 
         java.util.ArrayList<skill> skills = currentHero.getSkills(); 
         btnSkill1.setText(skills.get(0).getName());
+        btnSkill1.setToolTipText(createSkillTooltip(skills.get(0)));
+        
         btnSkill2.setText(skills.get(1).getName()); 
+        btnSkill2.setToolTipText(createSkillTooltip(skills.get(1)));
+        
         btnSkill3.setText(skills.get(2).getName()); 
+        btnSkill3.setToolTipText(createSkillTooltip(skills.get(2)));
 
         btnSkill1.setEnabled(true);
         btnSkill2.setEnabled(true);
@@ -754,6 +772,23 @@ public class forest extends javax.swing.JFrame {
             logger.log(java.util.logging.Level.SEVERE, "Error loading or scaling image: " + path, ex);
             return null;
         }
+    }
+    
+    /**
+     * 
+     * @param 
+     * @return 
+     */
+    private String createSkillTooltip(skill s) {
+        String powerLabel = s.isHealing() ? "Heal:" : "DMG:";
+        
+
+        String aoeLabel = s.isAoE() ? "Yes" : "No";
+              return "<html>" +
+               powerLabel + " " + s.getbasePower() + "<br>" + //
+               "Mana: " + s.getManaCost() + "<br>" + //
+               "AoE: " + aoeLabel +
+               "</html>";
     }
     
     

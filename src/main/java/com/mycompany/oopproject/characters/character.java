@@ -119,4 +119,9 @@ public abstract class character {
         System.out.println(this.name + " MAX MANA INCREASED TO " + this.MaxMana);
     }
     
+    public void upgradeBaseAttack(int amount) {
+        this.attack += amount;
+        System.out.println(this.name + " ATTACK INCREASED TO " + this.attack);
+    }
+    
 }
