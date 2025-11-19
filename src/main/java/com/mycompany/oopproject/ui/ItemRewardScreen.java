@@ -36,12 +36,18 @@ public class ItemRewardScreen extends javax.swing.JDialog {
 
         btnItem1.setText(items.get(0).getName());
         btnItem1.setToolTipText(items.get(0).getDescription());
+        setButtonRarityColor(btnItem1, items.get(0));
 
         btnItem2.setText(items.get(1).getName());
         btnItem2.setToolTipText(items.get(1).getDescription());
+        setButtonRarityColor(btnItem2, items.get(1));
 
         btnItem3.setText(items.get(2).getName());
         btnItem3.setToolTipText(items.get(2).getDescription());
+        setButtonRarityColor(btnItem3, items.get(2));
+        
+        this.setSize(265, 180);
+        this.setLocationRelativeTo(parent);
         
     }
 
@@ -59,7 +65,6 @@ public class ItemRewardScreen extends javax.swing.JDialog {
         btnItem3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(253, 150));
 
         btnItem1.setFont(new java.awt.Font("Book Antiqua", 1, 14)); // NOI18N
         btnItem1.setText("jButton1");
@@ -99,33 +104,58 @@ public class ItemRewardScreen extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnItem1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnItem1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnItem2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnItem3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(72, Short.MAX_VALUE))
+                    .addComponent(btnItem3, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
+                .addGap(20, 20, 20)
                 .addComponent(btnItem1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnItem2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnItem3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+// แก้ไขเมธอดนี้ในไฟล์ ItemRewardScreen.java
     private void applyStatsAndClose(Item chosenItem) {
-        for (hero h : winningHeroes) {
-            h.applyItemStats(chosenItem);
+
+        String[] heroNames = new String[winningHeroes.size()];
+        for (int i = 0; i < winningHeroes.size(); i++) {
+            heroNames[i] = winningHeroes.get(i).getName();
         }
-        this.dispose();
+
+        int choice = javax.swing.JOptionPane.showOptionDialog(
+            this,
+            "Choose a hero to equip: " + chosenItem.getName() + "\n" + chosenItem.getDescription(),
+            "Select Hero",
+            javax.swing.JOptionPane.DEFAULT_OPTION,
+            javax.swing.JOptionPane.QUESTION_MESSAGE,
+            null,
+            heroNames,
+            heroNames[0] 
+        );
+
+        if (choice >= 0) {
+
+            hero selectedHero = winningHeroes.get(choice);
+
+            selectedHero.applyItemStats(chosenItem);
+
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                selectedHero.getName() + " received " + chosenItem.getName() + "!");
+
+            this.dispose();
+        }
     }
     
     private void btnItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnItem1ActionPerformed
@@ -152,4 +182,29 @@ public class ItemRewardScreen extends javax.swing.JDialog {
     private javax.swing.JButton btnItem2;
     private javax.swing.JButton btnItem3;
     // End of variables declaration//GEN-END:variables
+
+    private void setButtonRarityColor(javax.swing.JButton btn, Item item) {
+        String name = item.getName();
+
+        btn.setOpaque(true);
+        btn.setBorderPainted(false);
+
+        if (name.startsWith("Mystical")) {
+            btn.setBackground(new java.awt.Color(148, 0, 211)); 
+            btn.setForeground(java.awt.Color.WHITE);
+
+        } else if (name.startsWith("Legendary")) {
+            btn.setBackground(new java.awt.Color(255, 215, 0)); 
+            btn.setForeground(java.awt.Color.BLACK);
+
+        } else if (name.startsWith("Rare")) {
+            btn.setBackground(new java.awt.Color(0, 191, 255)); 
+            btn.setForeground(java.awt.Color.BLACK);
+
+        } else {
+            btn.setBackground(new java.awt.Color(245, 245, 245));
+            btn.setForeground(java.awt.Color.BLACK);
+        }
+    }
+    
 }
