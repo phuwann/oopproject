@@ -20,7 +20,7 @@ public class mage extends hero {
         this.skills = new ArrayList<>();
         this.skills.add(new skill("NORMAL ATTACK", 1, 0, false,false));
         this.skills.add(new skill("MAGIC BEAM", 3, 3, false,false));
-        this.skills.add(new skill("MAGIC BOMB", 7, 5, false,true));
+        this.skills.add(new skill("MAGIC BOMB", 50, 5, false,true));
         
     }
     

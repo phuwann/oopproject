@@ -4,6 +4,17 @@
  */
 package com.mycompany.oopproject.ui;
 
+import java.awt.Color;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+import javax.swing.Timer;
+import java.awt.AlphaComposite;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.Timer;
 import com.mycompany.oopproject.characters.character;
 import com.mycompany.oopproject.heroes.fighter;
 import com.mycompany.oopproject.gamedata;
@@ -80,7 +91,7 @@ public class forest extends javax.swing.JFrame {
 
         if (m1 != null && !(m1 instanceof EmptyMonster)) {
             txtMonster1.setText(m1.getName());
-            monster1.setIcon(createScaledImageIcon(m1.getImagePath(), 270, 300));
+            monster1.setIcon(createScaledImageIcon(m1.getImagePath(), 230, 270));
         } else {
 
             monster1.setVisible(false);
@@ -90,7 +101,7 @@ public class forest extends javax.swing.JFrame {
 
         if (m2 != null && !(m2 instanceof EmptyMonster)) {
             txtMonster2.setText(m2.getName());
-            monster2.setIcon(createScaledImageIcon(m2.getImagePath(), 270, 300));
+            monster2.setIcon(createScaledImageIcon(m2.getImagePath(), 230, 270));
         } else {
 
             monster2.setVisible(false);
@@ -103,9 +114,9 @@ public class forest extends javax.swing.JFrame {
             txtMonster3.setText(m3.getName());
             
             if (m3 instanceof dragon) {
-                monster3.setIcon(createScaledImageIcon(m3.getImagePath(), 400, 450)); 
+                monster3.setIcon(createScaledImageIcon(m3.getImagePath(), 370, 400)); 
             } else {
-                monster3.setIcon(createScaledImageIcon(m3.getImagePath(), 270, 300));
+                monster3.setIcon(createScaledImageIcon(m3.getImagePath(), 230, 270));
             }
             
         } else {
@@ -243,7 +254,10 @@ public class forest extends javax.swing.JFrame {
             selectedSkill = null;
             return; 
         }
-
+        
+        
+        JLabel targetLabel = getLabelForCharacter(target);
+        playHitEffect(targetLabel);
         currentHero.deductMana(selectedSkill.getManaCost());
 
         txtGamelog.append(currentHero.getName() + " USE " + selectedSkill.getName() + " TO " + target.getName() + "!\n");
@@ -603,11 +617,11 @@ public class forest extends javax.swing.JFrame {
         getContentPane().add(btnSkill1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 430, 160, 40));
         getContentPane().add(btnSkill2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 480, 160, 40));
         getContentPane().add(btnSkill3, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 530, 160, 40));
-        getContentPane().add(monster3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 180, 400, 350));
+        getContentPane().add(monster3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 210, 310, 320));
         getContentPane().add(monster2, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 290, 290, 280));
         getContentPane().add(hero1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 290, 280));
-        getContentPane().add(hero3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 190, 290, 280));
-        getContentPane().add(hero2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, 290, 280));
+        getContentPane().add(hero3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, 290, 280));
+        getContentPane().add(hero2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 290, 280));
         getContentPane().add(hpHero1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 170, 20));
         getContentPane().add(hpHero2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 170, 20));
         getContentPane().add(monster1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 160, 290, 280));
@@ -815,7 +829,7 @@ public class forest extends javax.swing.JFrame {
                 bgPath = "/images/map4.png";
                 break;
             case 4: 
-                bgPath = "/images/boss_lair.png";
+                bgPath = "/images/map5.png";
                 break;
             default:
                 bgPath = "/images/forest.png";
@@ -835,6 +849,52 @@ public class forest extends javax.swing.JFrame {
         } catch (Exception ex) {
             logger.log(java.util.logging.Level.SEVERE, "Error loading background image: " + bgPath, ex);
         }
+    }
+    
+    private void playHitEffect(JLabel targetLabel) {
+        if (targetLabel == null || targetLabel.getIcon() == null) return;
+
+        Icon originalIcon = targetLabel.getIcon();
+
+        ImageIcon redIcon = createRedTintedIcon((ImageIcon) originalIcon);
+
+        targetLabel.setIcon(redIcon);
+
+        Timer hitTimer = new Timer(200, e -> {
+            targetLabel.setIcon(originalIcon); 
+            ((Timer)e.getSource()).stop();    
+        });
+
+        hitTimer.setRepeats(false); 
+        hitTimer.start();
+    }
+
+    private ImageIcon createRedTintedIcon(ImageIcon original) {
+        int w = original.getIconWidth();
+        int h = original.getIconHeight();
+
+        BufferedImage bi = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = bi.createGraphics();
+
+        g.drawImage(original.getImage(), 0, 0, null);
+
+        g.setComposite(AlphaComposite.SrcAtop);
+
+        g.setColor(new java.awt.Color(255, 0, 0, 180)); 
+        g.fillRect(0, 0, w, h);
+
+        g.dispose();
+        return new ImageIcon(bi);
+    }
+    
+    private JLabel getLabelForCharacter(character c) {
+        if (c == characterToDisplay1) return hero1;
+        if (c == characterToDisplay2) return hero2;
+        if (c == characterToDisplay3) return hero3;
+        if (c == characterToDisplay4) return monster1;
+        if (c == characterToDisplay5) return monster2;
+        if (c == characterToDisplay6) return monster3;
+        return null;
     }
     
 }

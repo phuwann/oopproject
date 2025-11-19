@@ -38,8 +38,8 @@ public class orc extends monster {
             case 0: return "ORC";
             case 1: return "GOLEM";
             case 2: return "GOBLIN"; 
-            case 3: return "Cyclops";
-            case 4: return "ORC CAPTAIN";
+            case 3: return "CYCLOPS";
+            case 4: return "HELLHOUND";
             default: return "ORC";
         }
     }
@@ -51,7 +51,7 @@ public class orc extends monster {
             case 1: return "/images/golem.png";
             case 2: return "/images/goblin.png";
             case 3: return "/images/cyclops.png";
-            case 4: return "/images/orc_captain.png";
+            case 4: return "/images/dog.png";
             default: return "/images/orc.png";
         }
     }
