@@ -198,6 +198,7 @@ public class forest extends javax.swing.JFrame {
 
                 for (hero h : heroes) {
                     if (h.getcurrentHp() > 0) { 
+                        playHealEffect(getLabelForCharacter(h));
                         currentHero.useSkill(selectedSkill, h);
                     }
                 }
@@ -207,6 +208,7 @@ public class forest extends javax.swing.JFrame {
 
                 for (monster m : monsters) {
                     if (m.getcurrentHp() > 0) {
+                        playHitEffect(getLabelForCharacter(m));
                         currentHero.useSkill(selectedSkill, m);
                     }
                 }
@@ -232,6 +234,7 @@ public class forest extends javax.swing.JFrame {
             return; 
         }
 
+    
         if (selectedSkill.isHealing() && (target instanceof monster)) {
             txtGamelog.append("Wrong! " + selectedSkill.getName() + " Can only be used on Hero.\n");
             txtGamelog.setCaretPosition(txtGamelog.getDocument().getLength());
@@ -254,10 +257,15 @@ public class forest extends javax.swing.JFrame {
             selectedSkill = null;
             return; 
         }
-        
-        
+
         JLabel targetLabel = getLabelForCharacter(target);
-        playHitEffect(targetLabel);
+        
+        if (selectedSkill.isHealing()) {
+            playHealEffect(targetLabel);
+        } else {
+            playHitEffect(targetLabel);
+        }
+        
         currentHero.deductMana(selectedSkill.getManaCost());
 
         txtGamelog.append(currentHero.getName() + " USE " + selectedSkill.getName() + " TO " + target.getName() + "!\n");
@@ -266,7 +274,7 @@ public class forest extends javax.swing.JFrame {
 
         updateBars(); 
         
-        heroTurnIndex = (heroTurnIndex + 1) % heroes.size(); // เตรียมฮีโร่คนถัดไป
+        heroTurnIndex = (heroTurnIndex + 1) % heroes.size();
         startMonsterTurn();
     }
    
@@ -300,7 +308,6 @@ public class forest extends javax.swing.JFrame {
                     RewardScreen rewardDialog = new RewardScreen(this, true, this.heroes);
                     rewardDialog.setVisible(true);
                 }
-                
                 
                 gamedata.currentStage++; 
                 int nextStage = gamedata.currentStage;
@@ -515,7 +522,9 @@ public class forest extends javax.swing.JFrame {
                } else {
                     skillToUse = m.getSkills().get(0);
                }
-
+                
+                playHitEffect(getLabelForCharacter(target));
+                
                 txtGamelog.append(m.getName() + " USE " + skillToUse.getName() + " To " + target.getName() + "!\n");
                 txtGamelog.setCaretPosition(txtGamelog.getDocument().getLength());
                 m.useSkill(skillToUse, target);
@@ -617,11 +626,11 @@ public class forest extends javax.swing.JFrame {
         getContentPane().add(btnSkill1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 430, 160, 40));
         getContentPane().add(btnSkill2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 480, 160, 40));
         getContentPane().add(btnSkill3, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 530, 160, 40));
-        getContentPane().add(monster3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 210, 310, 320));
+        getContentPane().add(monster3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 210, 340, 320));
         getContentPane().add(monster2, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 290, 290, 280));
-        getContentPane().add(hero1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 290, 290, 280));
-        getContentPane().add(hero3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 200, 290, 280));
-        getContentPane().add(hero2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 290, 280));
+        getContentPane().add(hero1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 280, 260));
+        getContentPane().add(hero3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 210, 260, 270));
+        getContentPane().add(hero2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 290, 280));
         getContentPane().add(hpHero1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 170, 20));
         getContentPane().add(hpHero2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 170, 20));
         getContentPane().add(monster1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 160, 290, 280));
@@ -868,6 +877,23 @@ public class forest extends javax.swing.JFrame {
         hitTimer.setRepeats(false); 
         hitTimer.start();
     }
+    private void playHealEffect(JLabel targetLabel) {
+        if (targetLabel == null || targetLabel.getIcon() == null) return;
+
+        Icon originalIcon = targetLabel.getIcon();
+
+        ImageIcon greenIcon = createGreenTintedIcon((ImageIcon) originalIcon);
+
+        targetLabel.setIcon(greenIcon);
+
+        Timer hitTimer = new Timer(200, e -> {
+            targetLabel.setIcon(originalIcon); 
+            ((Timer)e.getSource()).stop();    
+        });
+
+        hitTimer.setRepeats(false); 
+        hitTimer.start();
+    }
 
     private ImageIcon createRedTintedIcon(ImageIcon original) {
         int w = original.getIconWidth();
@@ -881,6 +907,24 @@ public class forest extends javax.swing.JFrame {
         g.setComposite(AlphaComposite.SrcAtop);
 
         g.setColor(new java.awt.Color(255, 0, 0, 180)); 
+        g.fillRect(0, 0, w, h);
+
+        g.dispose();
+        return new ImageIcon(bi);
+    }
+    
+    private ImageIcon createGreenTintedIcon(ImageIcon original) {
+        int w = original.getIconWidth();
+        int h = original.getIconHeight();
+
+        BufferedImage bi = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g = bi.createGraphics();
+
+        g.drawImage(original.getImage(), 0, 0, null);
+
+        g.setComposite(AlphaComposite.SrcAtop);
+
+        g.setColor(new java.awt.Color(0, 255, 0, 150)); 
         g.fillRect(0, 0, w, h);
 
         g.dispose();

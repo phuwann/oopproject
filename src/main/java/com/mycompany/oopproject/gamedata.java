@@ -26,11 +26,10 @@ public class gamedata {
     public static hero FIGHTER = new fighter();
     public static hero HEALER = new healer();
     
-    public static int currentStage = 1;
+    public static int currentStage = 9;
     public static String playerName = "Player";
     public static final int BOSS_STAGE = 10;
-    
-    // --- 1. แยกตะกร้าไอเทม (Item Pools) ---
+
     
     public static final List<Item> NORMAL_ITEMS = List.of(
         new Item("Normal Ring", "+1 ATK, +1 Mana", 0, 1, 1),

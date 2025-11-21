@@ -126,7 +126,6 @@ public class ItemRewardScreen extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-// แก้ไขเมธอดนี้ในไฟล์ ItemRewardScreen.java
     private void applyStatsAndClose(Item chosenItem) {
 
         String[] heroNames = new String[winningHeroes.size()];
