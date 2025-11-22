@@ -26,7 +26,7 @@ public class gamedata {
     public static hero FIGHTER = new fighter();
     public static hero HEALER = new healer();
     
-    public static int currentStage = 9;
+    public static int currentStage = 1;
     public static String playerName = "Player";
     public static final int BOSS_STAGE = 10;
 
