@@ -20,6 +20,6 @@ public class fighter extends hero {
         this.skills = new ArrayList<>();
         this.skills.add(new skill(" NORMAL ATTACK ", 1, 0, false,false));
         this.skills.add(new skill(" BLADE RUSH ", 4, 4, false,false));
-        this.skills.add(new skill(" BLADE REAVER ", 2, 3, false,false));
+        this.skills.add(new skill(" BLADE REAVER ", 2, 3, false,true));
     }
 }
