@@ -43,7 +43,32 @@ public class StatusGui extends javax.swing.JFrame {
         jLabel2.setText("MAXHP : " + character.getMaxhp());
         jLabel4.setText("MAXMANA : " + character.getmana());
         
+        StringBuilder sb = new StringBuilder("<html>");
+        sb.append("<span style='font-size:10px;'>================ SKILL  ================</span><br>");
+        
+        for (com.mycompany.oopproject.characters.skill s : character.getSkills()) {
+            sb.append("<b>► ").append(s.getName()).append("</b><br>");
+            
+            if (s.isHealing()) {
+                sb.append("&nbsp;&nbsp; Power : ").append(s.getbasePower()).append(" (Heal)");
+            } else {
+                sb.append("&nbsp;&nbsp; Damage : ").append(s.getbasePower());
+            }
+
+            sb.append(" | Mana : ").append(s.getManaCost()).append("<br>");
+            sb.append("&nbsp;&nbsp; Type : ").append(s.isAoE() ? "<font color='red'>[ AOE ]</font>" : "[ Single ]").append("<br>");
+            sb.append("--------------------------------------------------<br>");
+        }
+        sb.append("</html>");
+
+        InforSkill.setText(sb.toString());
+        
+        InforSkill.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+        InforSkill.setFont(new java.awt.Font("Book Antiqua", 1, 16)); 
+        InforSkill.setForeground(new java.awt.Color(60, 40, 10)); 
     }
+
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -55,12 +80,13 @@ public class StatusGui extends javax.swing.JFrame {
     private void initComponents() {
 
         btnBackToLobby = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        InforSkill = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         bgLobby = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -80,16 +106,24 @@ public class StatusGui extends javax.swing.JFrame {
         });
         getContentPane().add(btnBackToLobby, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 110, 50));
 
+        jLabel5.setFont(new java.awt.Font("Book Antiqua", 1, 24)); // NOI18N
+        jLabel5.setText("STATUS");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 160, -1, -1));
+
         jLabel1.setText("jLabel1");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 390, 450));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 420, 450));
 
         jLabel2.setFont(new java.awt.Font("Book Antiqua", 1, 18)); // NOI18N
         jLabel2.setText("MAXHP : 7 ");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 170, 150, 20));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 190, 150, 20));
 
         jLabel4.setFont(new java.awt.Font("Book Antiqua", 1, 18)); // NOI18N
         jLabel4.setText("MAXMANA : 8");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 190, 140, 20));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 210, 140, 20));
+
+        InforSkill.setFont(new java.awt.Font("Book Antiqua", 1, 12)); // NOI18N
+        InforSkill.setText("jLabel6");
+        getContentPane().add(InforSkill, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 230, 370, 250));
 
         jLabel3.setBackground(new java.awt.Color(242, 217, 186));
         jLabel3.setFont(new java.awt.Font("Book Antiqua", 1, 14)); // NOI18N
@@ -98,9 +132,6 @@ public class StatusGui extends javax.swing.JFrame {
 
         bgLobby.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bgforest.png"))); // NOI18N
         getContentPane().add(bgLobby, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 570));
-
-        jLabel5.setText("jLabel5");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 210, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -144,6 +175,7 @@ public class StatusGui extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel InforSkill;
     private javax.swing.JLabel bgLobby;
     private javax.swing.JButton btnBackToLobby;
     private javax.swing.JLabel jLabel1;

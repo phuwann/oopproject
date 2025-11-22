@@ -278,83 +278,96 @@ public class forest extends javax.swing.JFrame {
         startMonsterTurn();
     }
    
-    private boolean checkGameOver() { 
-        boolean allMonstersDead = monsters.stream().allMatch(m -> m.getcurrentHp() == 0);
-        boolean allHeroesDead = heroes.stream().allMatch(h -> h.getcurrentHp() == 0);
+    private boolean checkGameOver() {
+            boolean allMonstersDead = monsters.stream().allMatch(m -> m.getcurrentHp() == 0);
+            boolean allHeroesDead = heroes.stream().allMatch(h -> h.getcurrentHp() == 0);
 
-        if (allMonstersDead) {
-            if (gamedata.currentStage == gamedata.BOSS_STAGE) {
-            
-                txtGamelog.append("\n🏆 === YOU BEAT THE GAME! === 🏆\n");
+            java.awt.Font popupFont = new java.awt.Font("Book Antiqua", 1, 18);
+            java.awt.Font loseFont = new java.awt.Font("Chiller", 1, 48);
+
+            if (allMonstersDead) {
+                if (gamedata.currentStage == gamedata.BOSS_STAGE) {
+
+                    txtGamelog.append("\n🏆 === YOU BEAT THE GAME! === 🏆\n");
+                    txtGamelog.setCaretPosition(txtGamelog.getDocument().getLength());
+
+                    String msg = "<html><center>Congratulations, " + gamedata.playerName + "!<br>You have defeated the final boss and saved the realm!</center></html>";
+                    javax.swing.JLabel lblMsg = new javax.swing.JLabel(msg);
+                    lblMsg.setFont(popupFont);
+
+                    javax.swing.JOptionPane.showMessageDialog(this, 
+                        lblMsg,
+                        "VICTORY!", 
+                        javax.swing.JOptionPane.INFORMATION_MESSAGE);
+
+                    gamedata.resetHeroes(); 
+                    new GUIMain().setVisible(true);
+                    this.dispose();
+
+                } else {
+
+                    if (gamedata.currentStage % 2 == 0) {
+                        ItemRewardScreen itemDialog = new ItemRewardScreen(this, true, this.heroes);
+                        itemDialog.setVisible(true);
+                    }else{
+                        RewardScreen rewardDialog = new RewardScreen(this, true, this.heroes);
+                        rewardDialog.setVisible(true);
+                    }
+
+                    gamedata.currentStage++; 
+                    int nextStage = gamedata.currentStage;
+
+                    monster m1_next, m2_next, m3_next;
+
+                    if (nextStage == gamedata.BOSS_STAGE) {
+                          m1_next = new EmptyMonster();
+                          m2_next = new EmptyMonster();
+                          m3_next = new dragon();
+                    } else {
+                          m1_next = new orc(nextStage);
+                          m2_next = new orc(nextStage);
+                          m3_next = new orc(nextStage);
+                    }
+
+                    hero h1 = this.heroes.get(0);
+                    hero h2 = this.heroes.get(1);
+                    hero h3 = this.heroes.get(2);
+                    h1.resetHp();
+                    h1.resetMana();
+                    h2.resetHp();
+                    h2.resetMana();
+                    h3.resetHp();
+                    h3.resetMana();
+                    new forest(h1, h2, h3, m1_next, m2_next, m3_next).setVisible(true);
+                    this.dispose(); 
+                }
+                return true;
+            }
+
+            if (allHeroesDead) {
+                lblTurnInfo.setFont(loseFont); 
+                lblTurnInfo.setForeground(java.awt.Color.RED); 
+                lblTurnInfo.setText("YOU LOSE!"); 
+
+
+                txtGamelog.append("\n💀 === YOU LOSE! === 💀\n");
                 txtGamelog.setCaretPosition(txtGamelog.getDocument().getLength());
+                isHeroTurn = false;
 
-                javax.swing.JOptionPane.showMessageDialog(this, 
-                    "Congratulations, " + gamedata.playerName + "!\nYou have defeated the final boss and saved the realm!", 
-                    "VICTORY!", 
-                    javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                javax.swing.JLabel lblLose = new javax.swing.JLabel("GAME OVER!");
+                lblLose.setFont(popupFont);
+                javax.swing.JOptionPane.showMessageDialog(this, lblLose, "Defeat", javax.swing.JOptionPane.ERROR_MESSAGE);
 
-                gamedata.resetHeroes(); 
+                gamedata.resetHeroes();
+
                 new GUIMain().setVisible(true);
                 this.dispose();
-
-            } else {
-                
-                if (gamedata.currentStage % 2 == 0) {
-                
-                    ItemRewardScreen itemDialog = new ItemRewardScreen(this, true, this.heroes);
-                    itemDialog.setVisible(true);
-                
-                }else{
-                    RewardScreen rewardDialog = new RewardScreen(this, true, this.heroes);
-                    rewardDialog.setVisible(true);
-                }
-                
-                gamedata.currentStage++; 
-                int nextStage = gamedata.currentStage;
-
-                monster m1_next, m2_next, m3_next;
-
-                if (nextStage == gamedata.BOSS_STAGE) {
-                     m1_next = new EmptyMonster();
-                     m2_next = new EmptyMonster();
-                     m3_next = new dragon();
-                } else {
-                     m1_next = new orc(nextStage);
-                     m2_next = new orc(nextStage);
-                     m3_next = new orc(nextStage);
-                }
-
-                hero h1 = this.heroes.get(0);
-                hero h2 = this.heroes.get(1);
-                hero h3 = this.heroes.get(2);
-                h1.resetHp();
-                h1.resetMana();
-                h2.resetHp();
-                h2.resetMana();
-                h3.resetHp();
-                h3.resetMana();
-                new forest(h1, h2, h3, m1_next, m2_next, m3_next).setVisible(true);
-                this.dispose(); 
+                return true;
             }
-            return true;
+
+            return false;
         }
 
-        if (allHeroesDead) {
-            lblTurnInfo.setText("YOU LOSE!"); //
-            txtGamelog.append("\n💀 === YOU LOSE! === 💀\n");
-            txtGamelog.setCaretPosition(txtGamelog.getDocument().getLength());
-            isHeroTurn = false;
-
-            gamedata.resetHeroes();
-
-            new GUIMain().setVisible(true);
-            this.dispose();
-            return true;
-        }
-
-        return false;
-    }
-    
     private void setupBars() {
         hpHero1.setMaximum(characterToDisplay1.getMaxhp());
         hpHero1.setValue(characterToDisplay1.getcurrentHp());
