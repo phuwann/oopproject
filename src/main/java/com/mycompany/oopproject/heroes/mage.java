@@ -15,12 +15,12 @@ import java.util.ArrayList;
 public class mage extends hero {
     
     public mage() {
-        super("Mage", "/images/mage.png", 7, 8, 1);
+        super("Mage", "/images/mage.png", 90, 100, 8);
         
         this.skills = new ArrayList<>();
-        this.skills.add(new skill("NORMAL ATTACK", 1, 0, false,false));
-        this.skills.add(new skill("MAGIC BEAM", 3, 3, false,false));
-        this.skills.add(new skill("MAGIC BOMB", 6, 5, false,true));
+        this.skills.add(new skill("NORMAL ATTACK", 0, 0, false,false));
+        this.skills.add(new skill("MAGIC BEAM", 50, 20, false,false));
+        this.skills.add(new skill("MAGIC BOMB", 40, 45, false,true));
         
     }
     

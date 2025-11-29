@@ -15,13 +15,13 @@ import java.util.ArrayList;
 public class tank extends hero {
     
     public tank() {
-        super("TANK", "/images/tank.png", 15, 6, 1);
+        super("TANK", "/images/tank.png", 200, 50, 10);
 
         
         this.skills = new ArrayList<>();
-        this.skills.add(new skill(" NORMAL ATTACK ", 1, 0, false,false));
-        this.skills.add(new skill(" SHIELD BASH ", 2, 2, false,false));
-        this.skills.add(new skill(" SLASH HAMMER ", 5, 3, false,false));
+        this.skills.add(new skill(" NORMAL ATTACK ", 0, 0, false,false));
+        this.skills.add(new skill(" SHIELD BASH ", 15, 10, false,false));
+        this.skills.add(new skill(" SLASH HAMMER ", 25, 20, false,false));
         
     }
 }

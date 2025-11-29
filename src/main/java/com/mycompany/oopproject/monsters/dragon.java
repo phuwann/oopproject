@@ -8,10 +8,10 @@ public class dragon extends monster {
 
 
     public dragon() {
-        super("DRAGON", "/images/Dragon.png", 50, 20, 5);
+        super("ANCIENT DRAGON", "/images/Dragon.png", 1200, 200, 35);
 
         this.skills = new ArrayList<>();
-        this.skills.add(new skill("CLAW ATTACK", 2, 0, false, false));
-        this.skills.add(new skill("FIRE BREATH", 8, 10, false, true));
+        this.skills.add(new skill("CLAW ATTACK", 15, 0, false, false));
+        this.skills.add(new skill("FIRE BREATH", 25, 50, false, true));
     }
 }

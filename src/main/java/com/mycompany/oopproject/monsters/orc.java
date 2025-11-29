@@ -23,13 +23,17 @@ public class orc extends monster {
         super(
             getMonsterNamePrefix(stage) + " (Lvl " + stage + ")",
             getMonsterImagePath(stage),                   
-            7 + ((stage - 1) * 2),                 
+            50 + ((stage - 1) * 20),                 
             0,                            
-            3 + (stage - 1)                                    
+            10 + ((stage - 1) * 3)                                
         );
 
         this.skills = new ArrayList<>();
         this.skills.add(new skill(" NORMAL ATTACK ", 0, 0, false, false));
+        
+        if (stage >= 5) {
+             this.skills.add(new skill("CRITICAL BASH", 10, 0, false, false));
+        }
     }
     
     private static String getMonsterNamePrefix(int stage) {

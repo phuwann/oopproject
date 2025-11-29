@@ -15,12 +15,12 @@ import java.util.ArrayList;
 public class healer extends hero {
     
     public healer(){
-        super("HEALER", "/images/healer.png", 9, 6, 1);
+        super("HEALER", "/images/healer.png", 110, 100, 6);
         
         this.skills = new ArrayList<>();
-        this.skills.add(new skill(" NORMAL ATTACK ", 1, 0, false,false));
-        this.skills.add(new skill(" HEALING LIGHT ", 5, 6, true,true));
-        this.skills.add(new skill(" RENEW ", 3, 3, true,false));
+        this.skills.add(new skill(" NORMAL ATTACK ", 0, 0, false,false));
+        this.skills.add(new skill(" HEALING LIGHT ", 25, 35, true,true));
+        this.skills.add(new skill(" RENEW ", 60, 25, true,false));
         
     }
 }

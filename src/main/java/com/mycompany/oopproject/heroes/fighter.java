@@ -15,11 +15,11 @@ import java.util.ArrayList;
 public class fighter extends hero {
     
     public fighter() {
-        super("FIGHTER", "/images/fighter.png", 8, 6, 1);
+        super("FIGHTER", "/images/fighter.png", 150, 60, 15);
         
         this.skills = new ArrayList<>();
-        this.skills.add(new skill(" NORMAL ATTACK ", 1, 0, false,false));
-        this.skills.add(new skill(" BLADE RUSH ", 4, 4, false,false));
-        this.skills.add(new skill(" BLADE REAVER ", 2, 3, false,true));
+        this.skills.add(new skill(" NORMAL ATTACK ", 0, 0, false,false));
+        this.skills.add(new skill(" BLADE RUSH ", 25, 15, false,false));
+        this.skills.add(new skill(" BLADE REAVER ", 15, 25, false,true));
     }
 }
