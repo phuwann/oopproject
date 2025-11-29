@@ -32,34 +32,33 @@ public class gamedata {
 
     
     public static final List<Item> NORMAL_ITEMS = List.of(
-        new Item("Normal Ring", "+1 ATK, +1 Mana", 0, 1, 1),
-        new Item("Normal Amulet", "+1 ATK, +1 Mana", 0, 1, 1),
-        new Item("Normal Armor", "+2 Max HP", 2, 0, 0),
-        new Item("Normal Helmet", "+2 Max HP", 2, 0, 0),
-        new Item("Normal Pants", "+1 Max HP, +1 Mana", 1, 1, 0),
-        new Item("Normal Boots", "+1 Max HP, +1 Mana", 1, 1, 0),
-        new Item("Normal Gloves", "+1 Max HP, +1 Mana, +1 ATK", 1, 1, 1)
+        new Item("Wooden Ring", "+3 ATK, +10 Mana", 0, 10, 3),
+        new Item("Leather Armor", "+20 Max HP", 20, 0, 0),
+        new Item("Old Boots", "+10 Max HP, +10 Mana", 10, 10, 0),
+        new Item("Rusty Sword", "+4 ATK", 0, 0, 4),
+        new Item("Apprentice Hat", "+20 Mana, +1 ATK", 0, 20, 1)
     );
 
     public static final List<Item> RARE_ITEMS = List.of(
-        new Item("Rare Ruby Ring", "+3 ATK, +2 Mana", 0, 2, 3),
-        new Item("Rare Emerald Armor", "+5 Max HP", 5, 0, 0),
-        new Item("Rare Swift Boots", "+3 Max HP, +3 Mana", 3, 3, 0),
-        new Item("Rare Vampire Fangs", "+4 ATK, -1 HP", -1, 0, 4)
+        new Item("Ruby Ring", "+8 ATK, +20 Mana", 0, 20, 8),
+        new Item("Chainmail", "+50 Max HP", 50, 0, 0),
+        new Item("Swift Boots", "+20 Max HP, +20 Mana", 20, 20, 0),
+        new Item("Vampire Fangs", "+12 ATK, -10 HP", -10, 0, 12),
+        new Item("Magic Orb", "+40 Mana, +5 ATK", 0, 40, 5)
     );
 
     public static final List<Item> LEGENDARY_ITEMS = List.of(
-        new Item("Legendary Dragon Heart", "+15 Max HP, +5 ATK", 15, 0, 5),
-        new Item("Legendary Wizard Hat", "+20 Max Mana, +5 ATK", 0, 20, 5),
-        new Item("Legendary Excalibur", "+12 ATK, +5 HP", 5, 0, 12),
-        new Item("Legendary Angel Wings", "+10 Max HP, +10 Max Mana", 10, 10, 0)
+        new Item("Dragon Heart", "+120 Max HP, +5 ATK", 120, 0, 5),
+        new Item("Archmage Hat", "+100 Max Mana, +10 ATK", 0, 100, 10),
+        new Item("Excalibur", "+25 ATK, +30 HP", 30, 0, 25),
+        new Item("Angel Wings", "+60 Max HP, +60 Max Mana", 60, 60, 0)
     );
 
     public static final List<Item> MYSTICAL_ITEMS = List.of(
-        new Item("Mystical Infinity Gem", "ALL STATS +20 (GOD TIER)", 20, 20, 20),
-        new Item("Mystical Void Essence", "+50 Mana, +25 ATK", 0, 50, 25),
-        new Item("Mystical Titan's Will", "+100 Max HP", 100, 0, 0),
-        new Item("Mystical Death Scythe", "+40 ATK", 0, 0, 40)
+        new Item("Infinity Gem", "ALL STATS +30", 30, 30, 15),
+        new Item("Void Essence", "+200 Mana, +30 ATK", 0, 200, 30),
+        new Item("Titan's Will", "+300 Max HP", 300, 0, 0),
+        new Item("Death Scythe", "+50 ATK", 0, 0, 50)
     );
 
 
