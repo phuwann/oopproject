@@ -8,6 +8,7 @@ com\mycompany\oopproject\ui\GUIMain$11.class
 com\mycompany\oopproject\ui\StatusGui$1.class
 com\mycompany\oopproject\ui\GUIMain$6.class
 com\mycompany\oopproject\ui\RewardScreen$1.class
+com\mycompany\oopproject\ui\GUIMain$14.class
 com\mycompany\oopproject\heroes\mage.class
 com\mycompany\oopproject\ui\forest$6.class
 com\mycompany\oopproject\ui\ItemRewardScreen.class
@@ -23,8 +24,10 @@ com\mycompany\oopproject\heroes\tank.class
 com\mycompany\oopproject\heroes\fighter.class
 com\mycompany\oopproject\ui\GUIMain$8.class
 com\mycompany\oopproject\ui\StatusGui$2.class
+com\mycompany\oopproject\SoundManager.class
 com\mycompany\oopproject\ui\ItemRewardScreen$1.class
 com\mycompany\oopproject\heroes\healer.class
+com\mycompany\oopproject\ui\GUIMain$13.class
 com\mycompany\oopproject\characters\Item.class
 com\mycompany\oopproject\ui\forest$RotatedLabel.class
 com\mycompany\oopproject\ui\forest$3.class

@@ -47,6 +47,7 @@ public class forest extends javax.swing.JFrame {
     private int monsterAttackIndex = 0;
     private boolean isTankTaunting = false;
     private hero theTank = null;
+    
 
     
     public forest(hero h1, hero h2, hero h3, monster m1, monster m2, monster m3) {
@@ -172,7 +173,6 @@ public class forest extends javax.swing.JFrame {
         hero3.addMouseListener(new java.awt.event.MouseAdapter() { 
             public void mouseClicked(java.awt.event.MouseEvent evt) { targetClicked(characterToDisplay3); } 
         });
-
 
         startGame();
         
@@ -316,6 +316,7 @@ public class forest extends javax.swing.JFrame {
             java.awt.Font loseFont = new java.awt.Font("Chiller", 1, 48);
 
             if (allMonstersDead) {
+                
                 if (gamedata.currentStage == gamedata.BOSS_STAGE) {
 
                     txtGamelog.append("\n🏆 === YOU BEAT THE GAME! === 🏆\n");
@@ -384,6 +385,7 @@ public class forest extends javax.swing.JFrame {
                 txtGamelog.setCaretPosition(txtGamelog.getDocument().getLength());
                 isHeroTurn = false;
 
+                
                 javax.swing.JLabel lblLose = new javax.swing.JLabel("GAME OVER!");
                 lblLose.setFont(popupFont);
                 javax.swing.JOptionPane.showMessageDialog(this, lblLose, "Defeat", javax.swing.JOptionPane.ERROR_MESSAGE);
@@ -922,19 +924,42 @@ public class forest extends javax.swing.JFrame {
     private void playHitEffect(JLabel targetLabel) {
         if (targetLabel == null || targetLabel.getIcon() == null) return;
 
-        Icon originalIcon = targetLabel.getIcon();
+        final javax.swing.Icon originalIcon = targetLabel.getIcon();
+        final java.awt.Point originalLocation = targetLabel.getLocation();
 
-        ImageIcon redIcon = createRedTintedIcon((ImageIcon) originalIcon);
+        javax.swing.ImageIcon redIcon = createRedTintedIcon((javax.swing.ImageIcon) originalIcon);
 
         targetLabel.setIcon(redIcon);
 
-        Timer hitTimer = new Timer(200, e -> {
-            targetLabel.setIcon(originalIcon); 
-            ((Timer)e.getSource()).stop();    
+        final int shakePower = 5;   
+        int shakeDelay = 40;         
+        final int totalDuration = 300; 
+
+        final long startTime = System.currentTimeMillis();
+        final java.util.Random rand = new java.util.Random();
+
+        javax.swing.Timer effectTimer = new javax.swing.Timer(shakeDelay, null);
+
+        effectTimer.addActionListener(e -> {
+            long elapsed = System.currentTimeMillis() - startTime;
+
+            if (elapsed < totalDuration) {
+                int offsetX = rand.nextInt(shakePower * 2 + 1) - shakePower;
+                int offsetY = rand.nextInt(shakePower * 2 + 1) - shakePower;
+
+                targetLabel.setLocation(originalLocation.x + offsetX, originalLocation.y + offsetY);
+
+            } else {
+                effectTimer.stop();
+
+                targetLabel.setIcon(originalIcon);
+
+                targetLabel.setLocation(originalLocation);
+            }
         });
 
-        hitTimer.setRepeats(false); 
-        hitTimer.start();
+        effectTimer.setInitialDelay(0);
+        effectTimer.start();
     }
     private void playHealEffect(JLabel targetLabel) {
         if (targetLabel == null || targetLabel.getIcon() == null) return;

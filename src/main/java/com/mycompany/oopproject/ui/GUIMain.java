@@ -4,6 +4,8 @@
  */
 package com.mycompany.oopproject.ui;
 
+
+import com.mycompany.oopproject.SoundManager;
 import com.mycompany.oopproject.gamedata;
 import com.mycompany.oopproject.characters.hero;
 import com.mycompany.oopproject.characters.monster;
@@ -19,6 +21,8 @@ import javax.swing.JOptionPane;
  */
 public class GUIMain extends javax.swing.JFrame {
     
+    private SoundManager soundManager = new SoundManager();
+    
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GUIMain.class.getName());
 
     /**
@@ -26,6 +30,8 @@ public class GUIMain extends javax.swing.JFrame {
      */
     public GUIMain() {
         initComponents();
+        
+        soundManager.playBGM("/sounds/bgm.wav");
        
         
     }
@@ -52,6 +58,8 @@ public class GUIMain extends javax.swing.JFrame {
         rdFighter = new javax.swing.JRadioButton();
         rdHealer = new javax.swing.JRadioButton();
         btnStart = new javax.swing.JButton();
+        btnMute = new javax.swing.JButton();
+        sliderVolume = new javax.swing.JSlider();
         bgLobby = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -190,6 +198,23 @@ public class GUIMain extends javax.swing.JFrame {
         });
         getContentPane().add(btnStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 420, 130, 80));
 
+        btnMute.setBackground(new java.awt.Color(242, 217, 186));
+        btnMute.setFont(new java.awt.Font("Book Antiqua", 1, 10)); // NOI18N
+        btnMute.setText("MUTE");
+        btnMute.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMuteActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnMute, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 540, 70, -1));
+
+        sliderVolume.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                sliderVolumeStateChanged(evt);
+            }
+        });
+        getContentPane().add(sliderVolume, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 540, 120, 20));
+
         bgLobby.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bgforest.png"))); // NOI18N
         getContentPane().add(bgLobby, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 570));
 
@@ -300,12 +325,40 @@ public class GUIMain extends javax.swing.JFrame {
                 m2 = new orc(stage);
                 m3 = new orc(stage);
             }
-
+            
+            soundManager.stop();
+            
             forest map1 = new forest(hero1, hero2, hero3, m1, m2, m3);
             map1.setVisible(true);
             this.dispose();
         }
     }//GEN-LAST:event_btnStartActionPerformed
+
+    private void btnMuteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMuteActionPerformed
+        // TODO add your handling code here:
+        soundManager.toggleMute();
+
+        if (soundManager.isMuted()) {
+            btnMute.setText("UNMUTE"); 
+            btnMute.setBackground(java.awt.Color.RED);
+            btnMute.setForeground(java.awt.Color.WHITE);
+        } else {
+            btnMute.setText("MUTE");
+            btnMute.setBackground(java.awt.Color.WHITE);
+            btnMute.setForeground(java.awt.Color.BLACK);
+        }
+    }//GEN-LAST:event_btnMuteActionPerformed
+
+    private void sliderVolumeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderVolumeStateChanged
+        // TODO add your handling code here:
+        int sliderValue = sliderVolume.getValue();
+        float volumeScale = sliderValue / 100.0f;
+        soundManager.setVolume(volumeScale);
+
+        if (sliderValue == 0) {
+             btnMute.setText("UNMUTE");
+        }
+    }//GEN-LAST:event_sliderVolumeStateChanged
 
     /**
      * @param args the command line arguments
@@ -340,6 +393,7 @@ public class GUIMain extends javax.swing.JFrame {
     private javax.swing.JButton btnFighter;
     private javax.swing.JButton btnHealer;
     private javax.swing.JButton btnMage;
+    private javax.swing.JButton btnMute;
     private javax.swing.JButton btnStart;
     private javax.swing.JButton btnTank;
     private javax.swing.JLabel jLable1;
@@ -348,6 +402,7 @@ public class GUIMain extends javax.swing.JFrame {
     private javax.swing.JRadioButton rdHealer;
     private javax.swing.JRadioButton rdMage;
     private javax.swing.JRadioButton rdTank;
+    private javax.swing.JSlider sliderVolume;
     private javax.swing.JTextField txtPlayerName;
     // End of variables declaration//GEN-END:variables
 }
