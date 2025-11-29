@@ -183,23 +183,18 @@ public class ItemRewardScreen extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void setButtonRarityColor(javax.swing.JButton btn, Item item) {
-        String name = item.getName();
-
         btn.setOpaque(true);
         btn.setBorderPainted(false);
 
-        if (name.startsWith("Mystical")) {
-            btn.setBackground(new java.awt.Color(148, 0, 211)); 
+        if (gamedata.Mystical.contains(item)) {
+            btn.setBackground(new java.awt.Color(148, 0, 211));
             btn.setForeground(java.awt.Color.WHITE);
-
-        } else if (name.startsWith("Legendary")) {
-            btn.setBackground(new java.awt.Color(255, 215, 0)); 
+        } else if (gamedata.Legendary.contains(item)) {
+            btn.setBackground(new java.awt.Color(255, 215, 0));
             btn.setForeground(java.awt.Color.BLACK);
-
-        } else if (name.startsWith("Rare")) {
+        } else if (gamedata.Rare.contains(item)) {
             btn.setBackground(new java.awt.Color(0, 191, 255)); 
             btn.setForeground(java.awt.Color.BLACK);
-
         } else {
             btn.setBackground(new java.awt.Color(245, 245, 245));
             btn.setForeground(java.awt.Color.BLACK);

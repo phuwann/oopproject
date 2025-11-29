@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class mage extends hero {
     
     public mage() {
-        super("Mage", "/images/mage.png", 90, 100, 8);
+        super("MAGE", "/images/mage.png", 90, 100, 8);
         
         this.skills = new ArrayList<>();
         this.skills.add(new skill("NORMAL ATTACK", 0, 0, false,false));

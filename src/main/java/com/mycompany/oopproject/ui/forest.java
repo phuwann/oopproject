@@ -707,16 +707,16 @@ public class forest extends javax.swing.JFrame {
 
         txtMonster1.setFont(new java.awt.Font("Book Antiqua", 1, 14)); // NOI18N
         txtMonster1.setText("jLabel3");
-        getContentPane().add(txtMonster1, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 90, -1, -1));
-        getContentPane().add(hpMonster3, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 10, 180, 20));
-        getContentPane().add(hpMonster2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 10, 180, 20));
-        getContentPane().add(hpMonster1, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 70, 180, 20));
+        getContentPane().add(txtMonster1, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 30, -1, -1));
+        getContentPane().add(hpMonster3, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 10, 180, 20));
+        getContentPane().add(hpMonster2, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 70, 180, 20));
+        getContentPane().add(hpMonster1, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 10, 180, 20));
 
         txtGamelog.setColumns(20);
         txtGamelog.setRows(5);
         jScrollPane1.setViewportView(txtGamelog);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 50, 280, 110));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 70, 390, 120));
 
         lblTurnInfo.setFont(new java.awt.Font("Book Antiqua", 1, 18)); // NOI18N
         lblTurnInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -729,11 +729,11 @@ public class forest extends javax.swing.JFrame {
 
         txtMonster2.setFont(new java.awt.Font("Book Antiqua", 1, 14)); // NOI18N
         txtMonster2.setText("jLabel3");
-        getContentPane().add(txtMonster2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, -1, -1));
+        getContentPane().add(txtMonster2, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 90, -1, -1));
 
         txtMonster3.setFont(new java.awt.Font("Book Antiqua", 1, 14)); // NOI18N
         txtMonster3.setText("jLabel3");
-        getContentPane().add(txtMonster3, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 30, -1, -1));
+        getContentPane().add(txtMonster3, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, -1, -1));
         getContentPane().add(ManaBar3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 30, 170, 20));
         getContentPane().add(ManaBar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 170, 20));
         getContentPane().add(ManaBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 170, 20));

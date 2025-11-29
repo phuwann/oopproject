@@ -99,7 +99,7 @@ public class RewardScreen extends javax.swing.JDialog {
     private void btnAtkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtkActionPerformed
         // TODO add your handling code here:
         for (hero h : winningHeroes) {
-            h.upgradeAllSkills(1);
+            h.upgradeAllSkills(5);
         }
         this.dispose();
     }//GEN-LAST:event_btnAtkActionPerformed
@@ -107,7 +107,7 @@ public class RewardScreen extends javax.swing.JDialog {
     private void btnHpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHpActionPerformed
         // TODO add your handling code here:
         for (hero h : winningHeroes) {
-            h.upgradeMaxHp(2);
+            h.upgradeMaxHp(10);
         }
         this.dispose();
     }//GEN-LAST:event_btnHpActionPerformed
@@ -115,7 +115,7 @@ public class RewardScreen extends javax.swing.JDialog {
     private void btnManaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManaActionPerformed
         // TODO add your handling code here:
         for (hero h : winningHeroes) {
-            h.upgradeMaxMana(2);
+            h.upgradeMaxMana(10);
         }
         this.dispose();
     }//GEN-LAST:event_btnManaActionPerformed
