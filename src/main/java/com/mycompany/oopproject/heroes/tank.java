@@ -20,8 +20,8 @@ public class tank extends hero {
         
         this.skills = new ArrayList<>();
         this.skills.add(new skill(" NORMAL ATTACK ", 0, 0, false,false));
-        this.skills.add(new skill(" SHIELD BASH ", 15, 10, false,false));
-        this.skills.add(new skill(" SLASH HAMMER ", 25, 20, false,false));
+        this.skills.add(new skill("IRON DEFENSE", 0, 15, false,false));
+        this.skills.add(new skill(" SLASH HAMMER ", 15, 20, false,true));
         
     }
 }

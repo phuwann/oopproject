@@ -45,6 +45,8 @@ public class forest extends javax.swing.JFrame {
     private skill selectedSkill = null; 
     private boolean isHeroTurn = true;
     private int monsterAttackIndex = 0;
+    private boolean isTankTaunting = false;
+    private hero theTank = null;
 
     
     public forest(hero h1, hero h2, hero h3, monster m1, monster m2, monster m3) {
@@ -62,6 +64,14 @@ public class forest extends javax.swing.JFrame {
         this.characterToDisplay5 = m2;
         this.characterToDisplay6 = m3;
         this.heroes = new java.util.ArrayList<>(java.util.Arrays.asList(h1, h2, h3));
+        
+        for (hero h : this.heroes) {
+            if (h instanceof tank) {
+                this.theTank = h;
+                break;
+            }
+        }
+        
         this.monsters = new java.util.ArrayList<>();
         if (m1 != null && !(m1 instanceof EmptyMonster)) this.monsters.add(m1);
         if (m2 != null && !(m2 instanceof EmptyMonster)) this.monsters.add(m2);
@@ -163,6 +173,7 @@ public class forest extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) { targetClicked(characterToDisplay3); } 
         });
 
+
         startGame();
         
     }
@@ -187,6 +198,20 @@ public class forest extends javax.swing.JFrame {
             return;
         }
 
+        if (selectedSkill.getName().equals("IRON DEFENSE")) {
+            
+            currentHero.deductMana(selectedSkill.getManaCost());
+            isTankTaunting = true; 
+
+            txtGamelog.append(currentHero.getName() + " USE IRON DEFENSE!\n(PROTECT TEAMMATES)\n");
+            txtGamelog.setCaretPosition(txtGamelog.getDocument().getLength());
+            updateBars();
+
+            heroTurnIndex = (heroTurnIndex + 1) % heroes.size(); 
+            startMonsterTurn();
+            return;
+        }
+        
         if (selectedSkill.isAoE()) {
             
             currentHero.deductMana(selectedSkill.getManaCost());
@@ -527,7 +552,15 @@ public class forest extends javax.swing.JFrame {
             }
             
             if (!livingHeroes.isEmpty()) {
-                hero target = livingHeroes.get(new java.util.Random().nextInt(livingHeroes.size()));
+                hero target;
+                
+                if (isTankTaunting && theTank != null && theTank.getcurrentHp() > 0) {
+                    target = theTank;
+                    txtGamelog.append("(Tank protects friends!)\n");
+                } else {
+                    target = livingHeroes.get(new java.util.Random().nextInt(livingHeroes.size()));
+                }
+                
                 skill skillToUse;
                 
                 if (m.getSkills().size() > 1 && new java.util.Random().nextInt(3) == 0) { 
@@ -589,6 +622,14 @@ public class forest extends javax.swing.JFrame {
         }
 
         currentHero = heroes.get(heroTurnIndex);
+        
+        if (currentHero instanceof tank) {
+            if (isTankTaunting) {
+                isTankTaunting = false;
+                txtGamelog.append("Tank's Iron Defense faded.\n");
+            }
+        }
+        
         isHeroTurn = true;
         updateTurnUI();
     }
