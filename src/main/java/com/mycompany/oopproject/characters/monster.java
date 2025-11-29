@@ -32,22 +32,7 @@ public abstract class monster extends character {
         super(name, imagePath, Maxhp, Mana, attack);
         this.skills = new ArrayList<>();
     }
-    
-    
-    @Override
-    public void takeDamage(int damageAmount) {
-        this.currentHp -= damageAmount;
-        
-        if (this.currentHp < 0) {
-            this.currentHp = 0;
-        }
-        
-        System.out.println(this.name +  " take " + damageAmount + " DMG! (left HP: " + this.currentHp + ")");
-        
-        if (this.currentHp == 0) {
-            System.out.println(this.name + " Dead!");
-        }
-    }
+   
 
     public void useSkill(skill skill, hero target) {
         

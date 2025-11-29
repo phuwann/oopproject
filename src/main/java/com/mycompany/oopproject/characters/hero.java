@@ -26,21 +26,6 @@ public abstract class hero extends character {
         return this.skills;
     }
     
-    @Override
-    public void takeDamage(int damageAmount) {
-        this.currentHp -= damageAmount;
-        
-        if (this.currentHp < 0) {
-            this.currentHp = 0;
-        }
-        
-        System.out.println(this.name + " take " + damageAmount + " DMG! (left HP: " + this.currentHp + ")");
-        
-        if (this.currentHp == 0) {
-            System.out.println(this.name + " dead!");
-        }
-    }
-    
     public void upgradeAllSkills(int amount) {
         for (skill s : this.skills) {
             s.upgradeBasePower(amount);

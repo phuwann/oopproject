@@ -224,7 +224,8 @@ public class forest extends javax.swing.JFrame {
                 for (hero h : heroes) {
                     if (h.getcurrentHp() > 0) { 
                         playHealEffect(getLabelForCharacter(h));
-                        currentHero.useSkill(selectedSkill, h);
+                        String result = currentHero.useSkill(selectedSkill, h); 
+                        txtGamelog.append("   " + h.getName() + result + "\n");
                     }
                 }
             } else {
@@ -234,7 +235,8 @@ public class forest extends javax.swing.JFrame {
                 for (monster m : monsters) {
                     if (m.getcurrentHp() > 0) {
                         playHitEffect(getLabelForCharacter(m));
-                        currentHero.useSkill(selectedSkill, m);
+                        String result = currentHero.useSkill(selectedSkill, m);
+                        txtGamelog.append("   " + m.getName() + result + "\n");
                     }
                 }
             }
@@ -293,7 +295,10 @@ public class forest extends javax.swing.JFrame {
         
         currentHero.deductMana(selectedSkill.getManaCost());
 
-        txtGamelog.append(currentHero.getName() + " USE " + selectedSkill.getName() + " TO " + target.getName() + "!\n");
+        txtGamelog.append(currentHero.getName() + " USE " + selectedSkill.getName() + " ON " + target.getName());
+        String result = currentHero.useSkill(selectedSkill, target);
+        txtGamelog.append(result + "\n");
+        
         txtGamelog.setCaretPosition(txtGamelog.getDocument().getLength());
         currentHero.useSkill(selectedSkill, target);
 

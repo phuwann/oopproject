@@ -28,7 +28,17 @@ public abstract class character {
         this.attack = attack;
     }
     
-    public abstract void takeDamage(int damageAmount);
+    public String takeDamage(int damageAmount) {
+        if (Math.random() < 0.15) {
+            return "DODGED";
+        }
+
+        this.currentHp -= damageAmount;
+        if (this.currentHp < 0) {
+            this.currentHp = 0;
+        }
+        return "HIT";
+    }
     
     public void resetHp() {
         this.currentHp = this.Maxhp;
@@ -87,17 +97,42 @@ public abstract class character {
         System.out.println(this.name + " HEAL " + amount + " (NOW HP: " + this.currentHp + ")");
     }
 
-    public void useSkill(skill skill, character target) {
-    
+    public String useSkill(skill skill, character target) {
+        StringBuilder resultMsg = new StringBuilder();
+
         if (skill.isHealing()) {
-            target.heal(skill.getbasePower());
-            System.out.println(this.name + " USE " + skill.getName() + " HEAL HP FOR " + target.getName());
+            int healAmount = skill.getbasePower();
+            // Critical Heal (20%)
+            if (Math.random() < 0.20) {
+                 healAmount *= 1.5;
+                 resultMsg.append(" (CRITICAL!)");
+            }
+            target.heal(healAmount);
+            resultMsg.insert(0, " -> HEAL " + healAmount + " HP");
+            
         } else {
             int damage = (this.attack + skill.getbasePower());
+
+            boolean isCrit = false;
+            if (Math.random() < 0.20) {
+                damage = (int)(damage * 1.5);
+                isCrit = true;
+            }
+            
             damage = Math.max(1, damage);
-            System.out.println(this.name + " USE " + skill.getName() + " ATTACK " + target.getName());
-            target.takeDamage(damage);
+            String status = target.takeDamage(damage);
+            
+            if (status.equals("DODGED")) {
+                resultMsg.append(" -> BUT ").append(target.getName()).append(" DODGED!");
+            } else {
+                resultMsg.append(" -> DEALS ").append(damage).append(" DMG");
+                if (isCrit) {
+                    resultMsg.append(" (CRITICAL!)");
+                }
+            }
         }
+        
+        return resultMsg.toString();
     }
     
     public void deductMana(int amount) {
