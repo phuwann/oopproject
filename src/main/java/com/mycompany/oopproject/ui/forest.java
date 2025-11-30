@@ -4,6 +4,7 @@
  */
 package com.mycompany.oopproject.ui;
 
+import com.mycompany.oopproject.SoundManager;
 import java.awt.Color;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
@@ -47,11 +48,15 @@ public class forest extends javax.swing.JFrame {
     private int monsterAttackIndex = 0;
     private boolean isTankTaunting = false;
     private hero theTank = null;
+    private SoundManager soundManager = new SoundManager();
     
 
     
-    public forest(hero h1, hero h2, hero h3, monster m1, monster m2, monster m3) {
+    public forest(hero h1, hero h2, hero h3, monster m1, monster m2, monster m3)    {
         initComponents();
+        
+        soundManager.playBGM("/sounds/forest_bmg.wav");
+        soundManager.setVolume(0.3f);
         
         setDynamicBackground();
         
@@ -223,6 +228,7 @@ public class forest extends javax.swing.JFrame {
 
                 for (hero h : heroes) {
                     if (h.getcurrentHp() > 0) { 
+                        soundManager.playSFX("/sounds/heal.wav");
                         playHealEffect(getLabelForCharacter(h));
                         String result = currentHero.useSkill(selectedSkill, h); 
                         txtGamelog.append("   " + h.getName() + result + "\n");
@@ -234,6 +240,7 @@ public class forest extends javax.swing.JFrame {
 
                 for (monster m : monsters) {
                     if (m.getcurrentHp() > 0) {
+                        soundManager.playSFX("/sounds/hit.wav");
                         playHitEffect(getLabelForCharacter(m));
                         String result = currentHero.useSkill(selectedSkill, m);
                         txtGamelog.append("   " + m.getName() + result + "\n");
@@ -288,8 +295,10 @@ public class forest extends javax.swing.JFrame {
         JLabel targetLabel = getLabelForCharacter(target);
         
         if (selectedSkill.isHealing()) {
+            soundManager.playSFX("/sounds/heal.wav");
             playHealEffect(targetLabel);
         } else {
+            soundManager.playSFX("/sounds/hit.wav");
             playHitEffect(targetLabel);
         }
         
@@ -316,6 +325,8 @@ public class forest extends javax.swing.JFrame {
             java.awt.Font loseFont = new java.awt.Font("Chiller", 1, 48);
 
             if (allMonstersDead) {
+                
+                soundManager.stop();
                 
                 if (gamedata.currentStage == gamedata.BOSS_STAGE) {
 
@@ -384,7 +395,8 @@ public class forest extends javax.swing.JFrame {
                 txtGamelog.append("\n💀 === YOU LOSE! === 💀\n");
                 txtGamelog.setCaretPosition(txtGamelog.getDocument().getLength());
                 isHeroTurn = false;
-
+                
+                soundManager.stop();
                 
                 javax.swing.JLabel lblLose = new javax.swing.JLabel("GAME OVER!");
                 lblLose.setFont(popupFont);
@@ -549,7 +561,7 @@ public class forest extends javax.swing.JFrame {
         btnSkill2.setEnabled(false);
         btnSkill3.setEnabled(false);
 
-        javax.swing.Timer monsterTimer = new javax.swing.Timer(1000, e -> {
+        javax.swing.Timer monsterTimer = new javax.swing.Timer(1600, e -> {
 
             java.util.ArrayList<hero> livingHeroes = new java.util.ArrayList<>();
             for (hero h : heroes) {
@@ -578,14 +590,14 @@ public class forest extends javax.swing.JFrame {
                 
                 playHitEffect(getLabelForCharacter(target));
                 
-                txtGamelog.append(m.getName() + " USE " + skillToUse.getName() + " To " + target.getName() + "!\n");
+                txtGamelog.append(m.getName() + " USE " + skillToUse.getName() + " TO " + target.getName() + "!\n");
                 txtGamelog.setCaretPosition(txtGamelog.getDocument().getLength());
                 m.useSkill(skillToUse, target);
 
                 updateBars();
             }
 
-            javax.swing.Timer cooldownTimer = new javax.swing.Timer(1000, e_cooldown -> {
+            javax.swing.Timer cooldownTimer = new javax.swing.Timer(1600, e_cooldown -> {
                 startHeroTurn(); 
             });
             cooldownTimer.setRepeats(false);
@@ -933,7 +945,7 @@ public class forest extends javax.swing.JFrame {
 
         final int shakePower = 5;   
         int shakeDelay = 40;         
-        final int totalDuration = 300; 
+        final int totalDuration = 500; 
 
         final long startTime = System.currentTimeMillis();
         final java.util.Random rand = new java.util.Random();
@@ -970,7 +982,7 @@ public class forest extends javax.swing.JFrame {
 
         targetLabel.setIcon(greenIcon);
 
-        Timer hitTimer = new Timer(200, e -> {
+        Timer hitTimer = new Timer(300, e -> {
             targetLabel.setIcon(originalIcon); 
             ((Timer)e.getSource()).stop();    
         });

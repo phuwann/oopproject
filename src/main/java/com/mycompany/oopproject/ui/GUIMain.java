@@ -325,12 +325,12 @@ public class GUIMain extends javax.swing.JFrame {
                 m2 = new orc(stage);
                 m3 = new orc(stage);
             }
-            
-            soundManager.stop();
+
             
             forest map1 = new forest(hero1, hero2, hero3, m1, m2, m3);
             map1.setVisible(true);
             this.dispose();
+            soundManager.stop();
         }
     }//GEN-LAST:event_btnStartActionPerformed
 
