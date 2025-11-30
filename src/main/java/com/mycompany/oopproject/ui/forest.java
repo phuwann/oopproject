@@ -55,6 +55,8 @@ public class forest extends javax.swing.JFrame {
     public forest(hero h1, hero h2, hero h3, monster m1, monster m2, monster m3)    {
         initComponents();
         
+        this.setLocationRelativeTo(null);
+        
         soundManager.playBGM("/sounds/forest_bmg.wav");
         soundManager.setVolume(0.3f);
         
@@ -889,8 +891,7 @@ public class forest extends javax.swing.JFrame {
                "Mana: " + s.getManaCost() + "<br>" + //
                "AoE: " + aoeLabel +
                "</html>";
-    }
-    
+    }  
     
     private void setDynamicBackground() {
         String bgPath;
@@ -973,6 +974,7 @@ public class forest extends javax.swing.JFrame {
         effectTimer.setInitialDelay(0);
         effectTimer.start();
     }
+    
     private void playHealEffect(JLabel targetLabel) {
         if (targetLabel == null || targetLabel.getIcon() == null) return;
 
@@ -1036,5 +1038,6 @@ public class forest extends javax.swing.JFrame {
         if (c == characterToDisplay6) return monster3;
         return null;
     }
+
     
 }

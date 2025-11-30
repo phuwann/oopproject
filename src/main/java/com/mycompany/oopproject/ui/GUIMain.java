@@ -30,6 +30,7 @@ public class GUIMain extends javax.swing.JFrame {
      */
     public GUIMain() {
         initComponents();
+        this.setLocationRelativeTo(null);
         
         soundManager.playBGM("/sounds/bgm.wav");
        
