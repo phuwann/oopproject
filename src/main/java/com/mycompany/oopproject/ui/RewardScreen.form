@@ -30,7 +30,7 @@
                   <Component id="btnHp" alignment="1" max="32767" attributes="0"/>
                   <Component id="btnMana" alignment="0" min="-2" pref="165" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="47" max="32767" attributes="0"/>
+              <EmptySpace pref="43" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -54,7 +54,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Book Antiqua" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="All Skill Damage +1"/>
+        <Property name="text" type="java.lang.String" value="All Skill Damage +5 "/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAtkActionPerformed"/>
@@ -65,7 +65,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Book Antiqua" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Max HP +2"/>
+        <Property name="text" type="java.lang.String" value="Max HP +10"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHpActionPerformed"/>
@@ -76,7 +76,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Book Antiqua" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Max Mana +2"/>
+        <Property name="text" type="java.lang.String" value="Max Mana +10"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnManaActionPerformed"/>

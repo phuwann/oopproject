@@ -633,7 +633,7 @@ public class forest extends javax.swing.JFrame {
             txtGamelog.setCaretPosition(txtGamelog.getDocument().getLength());
 
             for (hero h : heroes) {
-                h.regenerateMana(2);
+                h.regenerateMana(5);
             }
 
             updateBars();
@@ -698,17 +698,17 @@ public class forest extends javax.swing.JFrame {
                 btnSkill1ActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSkill1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 430, 160, 40));
-        getContentPane().add(btnSkill2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 480, 160, 40));
-        getContentPane().add(btnSkill3, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 530, 160, 40));
-        getContentPane().add(monster3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 210, 340, 320));
-        getContentPane().add(monster2, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 290, 290, 280));
-        getContentPane().add(hero1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, 280, 260));
-        getContentPane().add(hero3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 210, 260, 270));
-        getContentPane().add(hero2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 290, 280));
+        getContentPane().add(btnSkill1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 450, 160, 40));
+        getContentPane().add(btnSkill2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 500, 160, 40));
+        getContentPane().add(btnSkill3, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 550, 160, 40));
+        getContentPane().add(monster3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 220, 340, 320));
+        getContentPane().add(monster2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 320, 290, 280));
+        getContentPane().add(hero1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 280, 260));
+        getContentPane().add(hero3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 220, 260, 270));
+        getContentPane().add(hero2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 290, 280));
         getContentPane().add(hpHero1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 170, 20));
         getContentPane().add(hpHero2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 170, 20));
-        getContentPane().add(monster1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 160, 290, 280));
+        getContentPane().add(monster1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 170, 290, 280));
         getContentPane().add(hpHero3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, 170, 20));
 
         txtHero1.setFont(new java.awt.Font("Book Antiqua", 1, 14)); // NOI18N
@@ -732,7 +732,7 @@ public class forest extends javax.swing.JFrame {
         txtGamelog.setRows(5);
         jScrollPane1.setViewportView(txtGamelog);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 70, 390, 120));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 80, 390, 120));
 
         lblTurnInfo.setFont(new java.awt.Font("Book Antiqua", 1, 18)); // NOI18N
         lblTurnInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -764,7 +764,7 @@ public class forest extends javax.swing.JFrame {
         getContentPane().add(lblPlayerName, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 20, 70, 20));
 
         bgLobby.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/forest.png"))); // NOI18N
-        getContentPane().add(bgLobby, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 570));
+        getContentPane().add(bgLobby, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 600));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

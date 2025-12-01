@@ -46,7 +46,7 @@ public class RewardScreen extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btnAtk.setFont(new java.awt.Font("Book Antiqua", 1, 14)); // NOI18N
-        btnAtk.setText("All Skill Damage +1");
+        btnAtk.setText("All Skill Damage +5 ");
         btnAtk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAtkActionPerformed(evt);
@@ -54,7 +54,7 @@ public class RewardScreen extends javax.swing.JDialog {
         });
 
         btnHp.setFont(new java.awt.Font("Book Antiqua", 1, 14)); // NOI18N
-        btnHp.setText("Max HP +2");
+        btnHp.setText("Max HP +10");
         btnHp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHpActionPerformed(evt);
@@ -62,7 +62,7 @@ public class RewardScreen extends javax.swing.JDialog {
         });
 
         btnMana.setFont(new java.awt.Font("Book Antiqua", 1, 14)); // NOI18N
-        btnMana.setText("Max Mana +2");
+        btnMana.setText("Max Mana +10");
         btnMana.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnManaActionPerformed(evt);
@@ -79,7 +79,7 @@ public class RewardScreen extends javax.swing.JDialog {
                     .addComponent(btnAtk, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnHp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnMana, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
