@@ -60,6 +60,7 @@ public class IntroStory extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Dragon.png"))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Book Antiqua", 1, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("THE LEGEND OF DRAGON");
 
         jTextArea1.setEditable(false);

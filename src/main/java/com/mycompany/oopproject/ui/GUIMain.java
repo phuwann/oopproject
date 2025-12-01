@@ -309,6 +309,7 @@ public class GUIMain extends javax.swing.JFrame {
                 "Please select 3 heroes.", 
                 "Selection Error", 
                 JOptionPane.WARNING_MESSAGE);
+                soundManager.stop();
         } else {
             hero hero1 = selectedHeroes.get(0); 
             hero hero2 = selectedHeroes.get(1); 
@@ -331,7 +332,7 @@ public class GUIMain extends javax.swing.JFrame {
             forest map1 = new forest(hero1, hero2, hero3, m1, m2, m3);
             map1.setVisible(true);
             this.dispose();
-            soundManager.stop();
+
         }
     }//GEN-LAST:event_btnStartActionPerformed
 

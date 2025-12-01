@@ -595,7 +595,9 @@ public class forest extends javax.swing.JFrame {
                 txtGamelog.append(m.getName() + " USE " + skillToUse.getName() + " TO " + target.getName() + "!\n");
                 txtGamelog.setCaretPosition(txtGamelog.getDocument().getLength());
                 m.useSkill(skillToUse, target);
-
+                
+                soundManager.playSFX("/sounds/Oof.wav");
+                
                 updateBars();
             }
 
