@@ -34,15 +34,20 @@ public abstract class monster extends character {
     }
    
 
-    public void useSkill(skill skill, hero target) {
+    public String useSkill(skill skill, hero target) {
         
         int damage = (this.attack + skill.getbasePower());
            
         damage = Math.max(1, damage); 
             
         System.out.println(this.name + " Use " + skill.getName() + " to " + target.getName() + "!");
-        target.takeDamage(damage);
-            
+        String status = target.takeDamage(damage);
+
+        if (status.equals("DODGED")) {
+             return " DODGED";
+        } else {
+             return " DEALS " + damage + " DMG";
+        }
         
     }
     

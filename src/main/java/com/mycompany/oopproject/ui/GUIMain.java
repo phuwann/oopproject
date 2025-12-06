@@ -262,6 +262,7 @@ public class GUIMain extends javax.swing.JFrame {
 
     private void btnMageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMageActionPerformed
         // TODO add your handling code here:
+        soundManager.stop();
         StatusGui mageStatus = new StatusGui("mage");
         mageStatus.setVisible(true);
         this.dispose();
@@ -270,6 +271,7 @@ public class GUIMain extends javax.swing.JFrame {
 
     private void btnArcherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArcherActionPerformed
         // TODO add your handling code here:
+        soundManager.stop();
         StatusGui archerStatus = new StatusGui("archer");
         archerStatus.setVisible(true);
         this.dispose();
@@ -277,6 +279,7 @@ public class GUIMain extends javax.swing.JFrame {
 
     private void btnHealerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHealerActionPerformed
         // TODO add your handling code here:
+        soundManager.stop();
         StatusGui healerStatus = new StatusGui("healer");
         healerStatus.setVisible(true);
         this.dispose();
@@ -327,6 +330,8 @@ public class GUIMain extends javax.swing.JFrame {
                 m2 = new orc(stage);
                 m3 = new orc(stage);
             }
+            
+            soundManager.stop();
 
             
             forest map1 = new forest(hero1, hero2, hero3, m1, m2, m3);

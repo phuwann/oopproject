@@ -29,6 +29,7 @@ public class StatusGui extends javax.swing.JFrame {
     
     public StatusGui(String x) {
         initComponents();
+        this.setLocationRelativeTo(null);
         
         switch (x.toLowerCase()) {
             case "mage" -> character = gamedata.MAGE;

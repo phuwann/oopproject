@@ -231,9 +231,13 @@ public class forest extends javax.swing.JFrame {
                 for (hero h : heroes) {
                     if (h.getcurrentHp() > 0) { 
                         soundManager.playSFX("/sounds/heal.wav");
+                        
                         playHealEffect(getLabelForCharacter(h));
+                        
                         String result = currentHero.useSkill(selectedSkill, h); 
                         txtGamelog.append("   " + h.getName() + result + "\n");
+                        
+                        showDamageEffect(result, getLabelForCharacter(h));
                     }
                 }
             } else {
@@ -243,9 +247,13 @@ public class forest extends javax.swing.JFrame {
                 for (monster m : monsters) {
                     if (m.getcurrentHp() > 0) {
                         soundManager.playSFX("/sounds/hit.wav");
+                       
                         playHitEffect(getLabelForCharacter(m));
+                        
                         String result = currentHero.useSkill(selectedSkill, m);
                         txtGamelog.append("   " + m.getName() + result + "\n");
+                        
+                        showDamageEffect(result, getLabelForCharacter(m));
                     }
                 }
             }
@@ -310,12 +318,14 @@ public class forest extends javax.swing.JFrame {
         String result = currentHero.useSkill(selectedSkill, target);
         txtGamelog.append(result + "\n");
         
+        showDamageEffect(result, targetLabel);
+        
         txtGamelog.setCaretPosition(txtGamelog.getDocument().getLength());
-        currentHero.useSkill(selectedSkill, target);
 
         updateBars(); 
         
         heroTurnIndex = (heroTurnIndex + 1) % heroes.size();
+        
         startMonsterTurn();
     }
    
@@ -595,6 +605,10 @@ public class forest extends javax.swing.JFrame {
                 txtGamelog.append(m.getName() + " USE " + skillToUse.getName() + " TO " + target.getName() + "!\n");
                 txtGamelog.setCaretPosition(txtGamelog.getDocument().getLength());
                 m.useSkill(skillToUse, target);
+                
+                String result = m.useSkill(skillToUse, target);
+                
+                showDamageEffect(result, getLabelForCharacter(target));
                 
                 soundManager.playSFX("/sounds/Oof.wav");
                 
@@ -1041,5 +1055,42 @@ public class forest extends javax.swing.JFrame {
         return null;
     }
 
+    private void showDamageEffect(String resultMsg, javax.swing.JLabel targetLabel) {
+        if (targetLabel == null) return;
+    
+        try {
+            String textToShow = "";
+            java.awt.Color color = java.awt.Color.WHITE;
+            int fontSize = 28;
+
+            if (resultMsg.contains("DODGED")) {
+                textToShow = "MISS";
+                color = java.awt.Color.GRAY;
+                fontSize = 24;
+            } else if (resultMsg.contains("HEAL")) {
+                textToShow = "+" + resultMsg.replaceAll("[^0-9]", ""); 
+                color = java.awt.Color.GREEN;
+            } else {
+                textToShow = resultMsg.replaceAll("[^0-9]", ""); 
+                if (textToShow.isEmpty()) textToShow = "0";
+
+                color = java.awt.Color.RED;
+                if (resultMsg.contains("CRITICAL")) {
+                    color = java.awt.Color.ORANGE;
+                    textToShow += "!";
+                    fontSize = 36;
+                }
+            }
+
+            int x = targetLabel.getX() + (targetLabel.getWidth() / 2) - 30; 
+            int y = targetLabel.getY(); 
+
+            new FloatingText(this.getLayeredPane(), textToShow, x, y, color, fontSize);
+
+        } catch (Exception e) {
+            System.out.println("Error in FloatingText: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
     
 }
