@@ -649,7 +649,7 @@ public class forest extends javax.swing.JFrame {
             txtGamelog.setCaretPosition(txtGamelog.getDocument().getLength());
 
             for (hero h : heroes) {
-                h.regenerateMana(5);
+                h.regenerateMana(20);
             }
 
             updateBars();

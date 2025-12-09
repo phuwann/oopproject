@@ -33,6 +33,7 @@ public class GUIMain extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         
         soundManager.playBGM("/sounds/bgm.wav");
+        soundManager.setVolume(0.3f);
        
         
     }
@@ -224,6 +225,7 @@ public class GUIMain extends javax.swing.JFrame {
 
     private void btnTankActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTankActionPerformed
         // TODO add your handling code here:
+        soundManager.stop();
         StatusGui tankStatus = new StatusGui("tank");
         tankStatus.setVisible(true);
         this.dispose();
@@ -231,6 +233,7 @@ public class GUIMain extends javax.swing.JFrame {
 
     private void btnFighterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFighterActionPerformed
         // TODO add your handling code here:
+        soundManager.stop();
         StatusGui fighterStatus = new StatusGui("fighter");
         fighterStatus.setVisible(true);
         this.dispose();
