@@ -8,6 +8,9 @@ package com.mycompany.oopproject.characters;
  *
  * @author Phuwan
  */
+
+/* FINAL */
+
 public class skill {
     private String name;
     private int manaCost;

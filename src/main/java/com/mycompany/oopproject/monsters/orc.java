@@ -12,6 +12,9 @@ import java.util.ArrayList;
  *
  * @author Phuwan
  */
+
+/* FINAL */
+
 public class orc extends monster {
     
     public orc() {

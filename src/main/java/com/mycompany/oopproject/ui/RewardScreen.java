@@ -11,6 +11,9 @@ import java.util.ArrayList;
  *
  * @author Phuwan
  */
+
+/* FINAL */
+
 public class RewardScreen extends javax.swing.JDialog {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RewardScreen.class.getName());

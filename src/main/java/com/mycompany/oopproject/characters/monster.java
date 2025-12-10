@@ -20,6 +20,9 @@ import java.util.ArrayList;
  *
  * @author Phuwan
  */
+
+/* FINAL */
+
 public abstract class monster extends character {
 
     protected ArrayList<skill> skills;

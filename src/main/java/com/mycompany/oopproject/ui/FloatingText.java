@@ -17,6 +17,9 @@ import java.awt.Container;
  *
  * @author Phuwan
  */
+
+/* FINAL */
+
 public class FloatingText extends JLabel {
     private Timer timer;
     private int yOffset = 0;

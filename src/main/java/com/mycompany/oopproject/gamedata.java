@@ -19,6 +19,9 @@ import java.util.List;
  *
  * @author Phuwan
  */
+
+/* FINAL */
+
 public class gamedata {
     public static hero MAGE = new mage();
     public static hero TANK = new tank();

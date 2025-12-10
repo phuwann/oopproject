@@ -12,6 +12,9 @@ import java.util.ArrayList;
  *
  * @author Phuwan
  */
+
+/* FINAL */
+
 public abstract class hero extends character {
     
     protected ArrayList<skill> skills;

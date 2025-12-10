@@ -4,6 +4,8 @@ import com.mycompany.oopproject.characters.skill;
 import com.mycompany.oopproject.characters.monster;
 import java.util.ArrayList;
 
+/* FINAL */
+
 public class dragon extends monster {
 
 

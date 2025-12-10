@@ -8,6 +8,9 @@ package com.mycompany.oopproject.ui;
  *
  * @author Phuwan
  */
+
+/* FINAL */
+
 public class IntroStory extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(IntroStory.class.getName());

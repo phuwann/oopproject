@@ -11,6 +11,9 @@ import java.net.URL;
  *
  * @author Phuwan
  */
+
+/* FINAL */
+
 public class SoundManager {
     
     private Clip bgmClip;

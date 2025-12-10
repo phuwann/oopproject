@@ -8,6 +8,9 @@ package com.mycompany.oopproject.characters;
  *
  * @author Phuwan
  */
+
+/* FINAL */
+
 public class Item {
     private String name;
     private String description;

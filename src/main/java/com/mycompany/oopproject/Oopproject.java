@@ -10,6 +10,7 @@ import com.mycompany.oopproject.ui.GUIMain;
  *
  * @author Phuwan
  */
+/* FINAL */
 public class Oopproject {
 
     public static void main(String[] args) {

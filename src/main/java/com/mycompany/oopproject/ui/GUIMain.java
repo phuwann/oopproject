@@ -19,6 +19,9 @@ import javax.swing.JOptionPane;
  *
  * @author Phuwan
  */
+
+/* FINAL */
+
 public class GUIMain extends javax.swing.JFrame {
     
     private SoundManager soundManager = new SoundManager();

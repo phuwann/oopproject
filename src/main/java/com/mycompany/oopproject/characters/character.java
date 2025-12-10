@@ -8,6 +8,9 @@ package com.mycompany.oopproject.characters;
  *
  * @author Phuwan
  */
+
+/* FINAL */
+
 public abstract class character {
     protected String name;
     protected String imagePath; 

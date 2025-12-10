@@ -28,6 +28,9 @@ import com.mycompany.oopproject.heroes.tank;
 import com.mycompany.oopproject.monsters.dragon;
 import com.mycompany.oopproject.monsters.EmptyMonster;
 
+
+/* FINAL */
+
 public class forest extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(forest.class.getName());
