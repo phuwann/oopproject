@@ -57,8 +57,11 @@ public class forest extends javax.swing.JFrame {
         
         this.setLocationRelativeTo(null);
         
+        
         soundManager.playBGM("/sounds/forest_bmg.wav");
-        soundManager.setVolume(0.3f);
+        float startVolume = 0.2f; 
+        soundManager.setVolume(startVolume);
+        sliderVolume.setValue((int)(startVolume * 100));
         
         setDynamicBackground();
         
@@ -132,7 +135,7 @@ public class forest extends javax.swing.JFrame {
             txtMonster3.setText(m3.getName());
             
             if (m3 instanceof dragon) {
-                monster3.setIcon(createScaledImageIcon(m3.getImagePath(), 370, 400)); 
+                monster3.setIcon(createScaledImageIcon(m3.getImagePath(), 350, 400)); 
             } else {
                 monster3.setIcon(createScaledImageIcon(m3.getImagePath(), 230, 270));
             }
@@ -363,6 +366,12 @@ public class forest extends javax.swing.JFrame {
                     if (gamedata.currentStage % 2 == 0) {
                         ItemRewardScreen itemDialog = new ItemRewardScreen(this, true, this.heroes);
                         itemDialog.setVisible(true);
+
+                    gamedata.currentStage++; 
+                    int nextStage = gamedata.currentStage;
+
+                    monster m1_next, m2_next, m3_next;
+
                     }else{
                         RewardScreen rewardDialog = new RewardScreen(this, true, this.heroes);
                         rewardDialog.setVisible(true);
@@ -675,13 +684,14 @@ public class forest extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        sliderVolume = new javax.swing.JSlider();
         btnSkill1 = new javax.swing.JButton();
         btnSkill2 = new javax.swing.JButton();
         btnSkill3 = new javax.swing.JButton();
         monster3 = new RotatedLabel();
         monster2 = new RotatedLabel();
-        hero1 = new RotatedLabel();
         hero3 = new RotatedLabel();
+        hero1 = new RotatedLabel();
         hero2 = new RotatedLabel();
         hpHero1 = new javax.swing.JProgressBar();
         hpHero2 = new javax.swing.JProgressBar();
@@ -709,6 +719,13 @@ public class forest extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        sliderVolume.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                sliderVolumeStateChanged(evt);
+            }
+        });
+        getContentPane().add(sliderVolume, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 580, 120, -1));
+
         btnSkill1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSkill1ActionPerformed(evt);
@@ -719,8 +736,8 @@ public class forest extends javax.swing.JFrame {
         getContentPane().add(btnSkill3, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 550, 160, 40));
         getContentPane().add(monster3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 220, 340, 320));
         getContentPane().add(monster2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 320, 290, 280));
-        getContentPane().add(hero1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 280, 260));
         getContentPane().add(hero3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 220, 260, 270));
+        getContentPane().add(hero1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 280, 260));
         getContentPane().add(hero2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 290, 280));
         getContentPane().add(hpHero1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 170, 20));
         getContentPane().add(hpHero2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 170, 20));
@@ -789,6 +806,14 @@ public class forest extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSkill1ActionPerformed
 
+    private void sliderVolumeStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderVolumeStateChanged
+        // TODO add your handling code here:                                       
+        int sliderValue = sliderVolume.getValue();
+        float volumeScale = sliderValue / 100.0f;
+
+        soundManager.setVolume(volumeScale);
+    }//GEN-LAST:event_sliderVolumeStateChanged
+
     /**
      * @param args the command line arguments
      */
@@ -845,6 +870,7 @@ public class forest extends javax.swing.JFrame {
     private javax.swing.JLabel monster1;
     private javax.swing.JLabel monster2;
     private javax.swing.JLabel monster3;
+    private javax.swing.JSlider sliderVolume;
     private javax.swing.JTextArea txtGamelog;
     private javax.swing.JLabel txtHero1;
     private javax.swing.JLabel txtHero2;
@@ -1092,5 +1118,5 @@ public class forest extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    
+
 }
